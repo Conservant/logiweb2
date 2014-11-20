@@ -11,11 +11,10 @@
     <title></title>
 </head>
 <body>
-<form action="./newDriver" method="POST">
-    Truck driver name: <input type="text" name="name"/>
-    Truck driver licence: <input type="text" name="licNumber"/>
-    <input type="submit" value="ADD DRIVER">
-</form>
-
+    <form action="./newDriver" method="POST">
+        Truck driver name: <input type="text" name="name"/>
+        Truck driver licence: <input type="text" name="licNumber"/>
+        <input type="submit" value="ADD DRIVER">
+    </form>
 </body>
 </html>

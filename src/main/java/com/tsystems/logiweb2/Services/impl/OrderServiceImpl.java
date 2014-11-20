@@ -24,7 +24,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order save(Order order) {
-        if (orderDAO.getByNumber(order.getNumber()) == null) {
+        if (orderDAO.getById(order.getId()) == null) {
             return orderDAO.save(order);
         }
         return null;

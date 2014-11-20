@@ -8,9 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>Создание нового заказа</title>
 </head>
 <body>
-
+<form action="./newOrder" method="POST">
+    <input type="submit" value="NEW ORDER">
+</form>
 </body>
 </html>

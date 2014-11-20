@@ -10,6 +10,6 @@ import java.util.List;
 public interface OrderDAO {
     List<Order> findAll();
     Order save(Order order);
-    Order getByNumber(Integer number);
+    Order getById(Integer Id);
 
 }

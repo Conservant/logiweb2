@@ -29,9 +29,9 @@ public class OrderDAOImpl implements OrderDAO{
     }
 
     @Override
-    public Order getByNumber(Integer number) {
-        Query q = entityManager.createNamedQuery("Order.getByNumber", Order.class);
-        q.setParameter("number", number);
+    public Order getById(Integer id) {
+        Query q = entityManager.createNamedQuery("Order.getById", Order.class);
+        q.setParameter("id", id);
         List<Order> list = q.getResultList();
         if (list.isEmpty()) return null;
         return list.get(0);

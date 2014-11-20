@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
 <head>
-    <title>Пользователи</title>
+    <title>Грузовики</title>
 </head>
 <body>
 <h3>Грузовики</h3>

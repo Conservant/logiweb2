@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Table(name = "ORDERS")
 @NamedQueries({
         @NamedQuery(name = "Order.getAll", query = "SELECT o FROM Order o"),
-        @NamedQuery(name = "Order.getByNumber", query = "SELECT o FROM Order o WHERE o.number = :number")
+        @NamedQuery(name = "Order.getByNumber", query = "SELECT o FROM Order o WHERE o.id = :id")
 })
 
 public class Order {
@@ -19,14 +19,12 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "NUMBER")
-    private Integer number;
-
     @Column(name = "ORDER_STATUS")
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
     public Order() {
+        orderStatus = OrderStatus.CREATED;
     }
 
     public Integer getId() {
@@ -35,14 +33,6 @@ public class Order {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
     }
 
     public OrderStatus getOrderStatus() {

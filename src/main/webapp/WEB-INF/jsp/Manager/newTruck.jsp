@@ -12,9 +12,9 @@
 </head>
 <body>
     <form action="./newTruck" method="POST">
-        Truck reg number: <input type="text" name="regNumber"/>
-        Truck count drivers: <input type="text" name="reqDrivers"/>
-        Truck capacity: <input type="text" name="capacity"/>
+        Truck reg number: <input type="text" name="regNumber"/><br/>
+        Truck count drivers: <input type="text" name="reqDrivers"/><br/>
+        Truck capacity: <input type="text" name="capacity"/><br/>
         <input type="submit" value="ADD TRUCK">
 
     </form>
