@@ -24,7 +24,12 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public Driver save(Driver driver) {
-        return null;
+
+        if (driverDAO.findByLicNumber(driver.getLicNumber()) == null) {
+            return driverDAO.save(driver);
+        }
+        System.out.println("Driver not added");
+        return driver;
     }
 
     @Override
@@ -39,12 +44,4 @@ public class DriverServiceImpl implements DriverService {
         return drivers;
 
     }
-
-    @Override
-    public Driver findByLicNumber(String licNumber) {
-        return null;
-    }
-
-
-
 }

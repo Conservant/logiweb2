@@ -20,22 +20,16 @@ public class TruckServiceImpl implements TruckService {
     private TruckDAO truckDAO;
 
     @Override
-    public Truck newTruck(Truck truck) {
-        return truckDAO.save(truck);
+    public Truck save(Truck truck) {
+        if (truckDAO.findByRegNumber(truck.getRegNumber()) == null) {
+            return truckDAO.save(truck);
+        }
+        return truck;
     }
 
     @Override
-    public List<Truck> allTrucks() {
+    public List<Truck> getAll() {
         return truckDAO.findAll();
     }
 
-    @Override
-    public Truck getByRegNumber(String regNubmer) {
-        return null;
-    }
-
-    @Override
-    public Truck update(Truck truck) {
-        return null;
-    }
 }

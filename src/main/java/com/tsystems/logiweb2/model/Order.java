@@ -2,12 +2,28 @@ package com.tsystems.logiweb2.model;
 
 import com.tsystems.logiweb2.model.enums.OrderStatus;
 
+import javax.persistence.*;
+
 /**
  * Entity Order class
  */
+@Entity
+@Table(name = "ORDERS")
+@NamedQueries({
+        @NamedQuery(name = "Order.getAll", query = "SELECT o FROM Order o"),
+        @NamedQuery(name = "Order.getByNumber", query = "SELECT o FROM Order o WHERE o.number = :number")
+})
+
 public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Integer uniqueNumber;
+
+    @Column(name = "NUMBER")
+    private Integer number;
+
+    @Column(name = "ORDER_STATUS")
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
     public Order() {
@@ -21,12 +37,12 @@ public class Order {
         this.id = id;
     }
 
-    public Integer getUniqueNumber() {
-        return uniqueNumber;
+    public Integer getNumber() {
+        return number;
     }
 
-    public void setUniqueNumber(Integer uniqueNumber) {
-        this.uniqueNumber = uniqueNumber;
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 
     public OrderStatus getOrderStatus() {

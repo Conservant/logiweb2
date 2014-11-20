@@ -13,7 +13,7 @@
 
     <bean id = "dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql://localhost:3306/logiweb2"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/logi2"/>
         <property name="username" value="root"/>
         <property name="password" value="root"/>
     </bean>
@@ -29,7 +29,7 @@
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
         <property name="packagesToScan">

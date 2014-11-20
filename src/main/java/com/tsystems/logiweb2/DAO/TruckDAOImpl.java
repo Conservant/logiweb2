@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 /**
@@ -26,5 +27,16 @@ public class TruckDAOImpl implements TruckDAO {
     public Truck save(Truck truck) {
         entityManager.persist(truck);
         return truck;
+    }
+
+    @Override
+    public Truck findByRegNumber(String regNumber) {
+        Query q = entityManager.createNamedQuery("Truck.getByRegNumber", Truck.class);
+        q.setParameter("regNumber", regNumber);
+        List<Truck> list = q.getResultList();
+        if(list.isEmpty()) {
+            return null;
+        }
+        return list.get(0);
     }
 }

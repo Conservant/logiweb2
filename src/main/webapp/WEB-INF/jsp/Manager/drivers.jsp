@@ -25,5 +25,8 @@
               </tr>
     </c:forEach>
 </table>
+
+<br/>
+<a href = "./newDriver">Добавить водителя</a>
 </body>
 </html>

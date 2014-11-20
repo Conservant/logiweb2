@@ -41,6 +41,7 @@ public class Truck {
     public Truck(String regNumber, Integer requiredNumberOfDrivers, Double capacity) {
         this.regNumber = regNumber;
         this.requiredNumberOfDrivers = requiredNumberOfDrivers;
+        this.capacity = capacity;
         if (capacity < 0) {
             setCapacityClass(CapacityClass.SMALL);
         } else if (capacity > 5) {

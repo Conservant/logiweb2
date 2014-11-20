@@ -10,5 +10,4 @@ import java.util.List;
 public interface DriverService {
     Driver save(Driver driver);
     List<Driver> getAll();
-    Driver findByLicNumber(String licNumber);
 }

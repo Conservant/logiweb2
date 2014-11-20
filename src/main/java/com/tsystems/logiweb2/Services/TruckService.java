@@ -8,8 +8,6 @@ import java.util.List;
  * Created by StarKiller on 17.11.2014.
  */
 public interface TruckService {
-    Truck newTruck(Truck truck);
-    List<Truck> allTrucks();
-    Truck getByRegNumber(String regNumber);
-    Truck update(Truck truck);
+    Truck save(Truck truck);
+    List<Truck> getAll();
 }

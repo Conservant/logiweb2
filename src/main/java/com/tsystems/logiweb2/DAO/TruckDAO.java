@@ -10,4 +10,5 @@ import java.util.List;
 public interface TruckDAO {
     List<Truck> findAll();
     Truck save(Truck truck);
+    Truck findByRegNumber(String regNumber);
 }

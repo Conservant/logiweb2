@@ -10,4 +10,5 @@ import java.util.List;
 public interface DriverDAO {
     List<Driver> findAll();
     Driver save(Driver driver);
+    Driver findByLicNumber(String licNumber);
 }

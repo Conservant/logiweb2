@@ -18,7 +18,7 @@ public class Driver {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "LICENCE_NUMBER")
+    @Column(name = "LICENSE_NUMBER")
     private String licNumber;
 
     @Column(name = "NAME")

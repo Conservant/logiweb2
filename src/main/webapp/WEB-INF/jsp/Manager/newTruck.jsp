@@ -11,7 +11,7 @@
     <title></title>
 </head>
 <body>
-    <form action="/newTruck" method="POST">
+    <form action="./newTruck" method="POST">
         Truck reg number: <input type="text" name="regNumber"/>
         Truck count drivers: <input type="text" name="reqDrivers"/>
         Truck capacity: <input type="text" name="capacity"/>

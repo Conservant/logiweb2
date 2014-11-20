@@ -6,8 +6,8 @@
     <title>Пользователи</title>
 </head>
 <body>
-<h3>Пользователи</h3>
-<a href="<c:url value="/addTruck.html"/>">Добавить пользователя</a>
+<h3>Грузовики</h3>
+
 
 <table>
 
@@ -28,5 +28,8 @@
         </tr>
     </c:forEach>
 </table>
+
+<br/>
+<a href="./newTruck">Добавить грузовик</a>
 </body>
 </html>

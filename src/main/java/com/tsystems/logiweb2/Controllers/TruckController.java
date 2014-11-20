@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,26 +19,27 @@ public class TruckController {
     @Autowired
     private TruckService truckService;
 
-    @RequestMapping("/trucks.html")
-    public ModelAndView listTrucks() {
-        return new ModelAndView("WEB-INF/jsp/Manager/trucks.jsp", "trucks", truckService.allTrucks());
+    @RequestMapping("/trucks")
+    public String listTrucks(ModelMap model) {
+        model.addAttribute("trucks", truckService.getAll());
+        return "WEB-INF/jsp/Manager/trucks.jsp";
     }
 
-    @RequestMapping(name = "/newTruck.html", method = RequestMethod.GET)
-    public ModelAndView newTruck() {
-        ModelAndView modelAndView = new ModelAndView("newTruck");
-        modelAndView.addObject("truck", new Truck());//????
-        return modelAndView;
+    @RequestMapping(value = "/newTruck", method = RequestMethod.GET)
+    public String newTruck() {
+        return "WEB-INF/jsp/Manager/newTruck.jsp";
     }
 
-    @RequestMapping(name = "/newTruck", method = RequestMethod.POST)
-    public ModelAndView newTruck(HttpServletRequest req, ModelAndView model) {
+    @RequestMapping(value = "/newTruck", method = RequestMethod.POST)
+    public String newTruck(HttpServletRequest req, ModelMap model) {
         Truck truck = new Truck(
-            req.getParameter("regNumber"), Integer.parseInt(req.getParameter("reqDrivers")), Double.parseDouble(req.getParameter("capacity"))
+            req.getParameter("regNumber"),
+            Integer.parseInt(req.getParameter("reqDrivers")),
+            Double.parseDouble(req.getParameter("capacity"))
         );
-
-        truckService.newTruck(truck);
-        return model;
+        System.out.println(truck);
+        truckService.save(truck);
+        return listTrucks(model);
     }
 
 
