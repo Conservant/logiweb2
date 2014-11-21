@@ -1,14 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-<html>
-<head>
-    <title>Грузовики</title>
-</head>
-<body>
-<h3>Грузовики</h3>
-
-
 <table>
 
     <tr>
@@ -31,5 +23,3 @@
 
 <br/>
 <a href="./newTruck">Добавить грузовик</a>
-</body>
-</html>

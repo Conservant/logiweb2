@@ -16,7 +16,7 @@
         <th>Статус</th>
     </tr>
 
-    <c:forEach items="${orders}" var="order">
+    <c:forEach items="${createdOrders}" var="order">
         <tr>
             <td><c:out value="${order.id}"/></td>
             <td><c:out value="${order.orderStatus}"/></td>

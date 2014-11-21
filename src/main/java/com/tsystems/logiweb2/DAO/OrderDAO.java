@@ -1,6 +1,7 @@
 package com.tsystems.logiweb2.DAO;
 
 import com.tsystems.logiweb2.model.Order;
+import com.tsystems.logiweb2.model.enums.OrderStatus;
 
 import java.util.List;
 
@@ -10,6 +11,6 @@ import java.util.List;
 public interface OrderDAO {
     List<Order> findAll();
     Order save(Order order);
-    Order getById(Integer Id);
-
+    Order getById(Long Id);
+    List<Order> getOrdersByStatus(OrderStatus orderStatus);
 }

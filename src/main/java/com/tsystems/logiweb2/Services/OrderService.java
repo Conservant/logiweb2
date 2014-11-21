@@ -10,5 +10,11 @@ import java.util.List;
  */
 public interface OrderService {
     List<Order> getAll();
-    Order save(Order order);
+    List<Order> getPerformed();
+    List<Order> getCreated();
+    List<Order> getConfirmed();
+
+    Order createOrder();
+    Order closeOrder(Long id);
+
 }

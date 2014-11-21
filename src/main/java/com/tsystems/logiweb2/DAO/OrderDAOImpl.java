@@ -1,6 +1,7 @@
 package com.tsystems.logiweb2.DAO;
 
 import com.tsystems.logiweb2.model.Order;
+import com.tsystems.logiweb2.model.enums.OrderStatus;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -15,11 +16,11 @@ import java.util.List;
 public class OrderDAOImpl implements OrderDAO{
 
     @PersistenceContext
-    EntityManager entityManager;
+    private EntityManager entityManager;
 
     @Override
     public List<Order> findAll() {
-        return entityManager.createQuery("Order.getAll", Order.class).getResultList();
+        return entityManager.createNamedQuery("Order.getAll", Order.class).getResultList();
     }
 
     @Override
@@ -29,11 +30,18 @@ public class OrderDAOImpl implements OrderDAO{
     }
 
     @Override
-    public Order getById(Integer id) {
+    public Order getById(Long id) {
         Query q = entityManager.createNamedQuery("Order.getById", Order.class);
         q.setParameter("id", id);
         List<Order> list = q.getResultList();
         if (list.isEmpty()) return null;
         return list.get(0);
+    }
+
+    @Override
+    public List<Order> getOrdersByStatus(OrderStatus orderStatus) {
+        Query q = entityManager.createNamedQuery("Order.getByStatus", Order.class);
+        q.setParameter("orderStatus", orderStatus);
+        return q.getResultList();
     }
 }

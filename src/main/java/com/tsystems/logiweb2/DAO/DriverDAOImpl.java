@@ -3,7 +3,6 @@ package com.tsystems.logiweb2.DAO;
 import com.tsystems.logiweb2.model.Driver;
 import org.springframework.stereotype.Repository;
 
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
@@ -27,7 +26,7 @@ public class DriverDAOImpl implements DriverDAO{
     }
 
     @Override
-    public Driver save(Driver driver)  throws PersistenceException {
+    public Driver save(Driver driver) {
         entityManager.persist(driver);
         return driver;
     }
