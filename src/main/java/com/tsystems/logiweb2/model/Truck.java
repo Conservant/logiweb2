@@ -42,13 +42,6 @@ public class Truck {
         this.regNumber = regNumber;
         this.requiredNumberOfDrivers = requiredNumberOfDrivers;
         this.capacity = capacity;
-        if (capacity < 0) {
-            setCapacityClass(CapacityClass.SMALL);
-        } else if (capacity > 5) {
-            setCapacityClass(CapacityClass.LARGE);
-        } else {
-            setCapacityClass(CapacityClass.MEDIUM);
-        }
     }
 
     public Long getId() {

@@ -1,20 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 <tiles-definitions>
-    <definition name="baseLayout" template="/WEB-INF/jsp/layout.jsp">
+    <definition name="baseLayout" template="/WEB-INF/jsp/layout/layout.jsp">
         <put-attribute name="title" value="Грузоперевозки 2.0"/>
-        <put-attribute name="header" value="/WEB-INF/jsp/header.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/jsp/layout/header.jsp"/>
         <put-attribute name="content" value=""/>
-        <put-attribute name="footer" value="/WEB-INF/jsp/footer.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/jsp/layout/footer.jsp"/>
     </definition>
 
     <definition name="index" extends="baseLayout">
         <put-attribute name="content" value="/WEB-INF/jsp/index.jsp"/>
+        <put-attribute name="current" value="index"/>
     </definition>
 
     <definition name="trucks" extends="baseLayout">
         <put-attribute name="title" value="Грузовики"/>
         <put-attribute name="content" value="/WEB-INF/jsp/Manager/trucks.jsp"/>
+        <put-attribute name="current" value="trucks"/>
+    </definition>
+
+    <definition name="drivers" extends="baseLayout">
+        <put-attribute name="title" value="Водители"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/Manager/drivers.jsp"/>
+        <put-attribute name="current" value="drivers"/>
+    </definition>
+
+    <definition name="orders" extends="baseLayout">
+        <put-attribute name="title" value="Заказы"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/Manager/orders.jsp"/>
+        <put-attribute name="current" value="orders"/>
+    </definition>
+
+    <definition name="orderDetail" extends="baseLayout">
+        <put-attribute name="title" value="Информация о заказе"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/Manager/orderDetail.jsp"/>
+        <put-attribute name="current" value=""/>
     </definition>
 
 </tiles-definitions>

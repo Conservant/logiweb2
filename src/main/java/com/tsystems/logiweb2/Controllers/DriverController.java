@@ -23,7 +23,7 @@ public class DriverController {
     @RequestMapping("/drivers")
     public String listDrivers(ModelMap model) {
         model.addAttribute("drivers", driverService.getAll());
-        return "WEB-INF/jsp/Manager/drivers.jsp";
+        return "drivers";
     }
 
     @RequestMapping(value = "/newDriver", method = RequestMethod.GET)

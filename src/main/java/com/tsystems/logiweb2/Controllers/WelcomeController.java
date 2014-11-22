@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class WelcomeController {
-    private int visitorCount = 0;
-    @RequestMapping("/")
-    public String index(Model model) {
-        model.addAttribute("visitorCount", visitorCount++);
+    @RequestMapping("/index")
+    public String index() {
         return "index";
     }
 }

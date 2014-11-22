@@ -1,15 +1,13 @@
+<%@ page contentType="text/html;charset=UTF-8"
+         language="java"
+         isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-<html>
-<head>
-    <title>Заказы</title>
-</head>
-<body>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <h3>Заказы</h3>
 
-
-<table>
+<table class="table table-bordered table-hover">
 
     <tr>
         <th>Номер заказа</th>
@@ -17,17 +15,19 @@
     </tr>
 
     <c:forEach items="${orders}" var="order">
-        <tr>
-            <td><c:out value="${order.id}"/></td>
-            <td><c:out value="${order.orderStatus}"/></td>
-        </tr>
+
+            <tr>
+                <td>
+                    <a href="<spring:url value="/orders/${order.id}.html" />"><c:out value="${order.id}"/></a>
+                </td>
+                <td><c:out value="${order.orderStatus}"/></td>
+            </tr>
+
     </c:forEach>
 </table>
 
 <br/>
 <a href =   "./newOrder"    >Создать заказ</a><br/>
-<a href=    "./confirmOrder">Добавить грузы</a>
-<a href=    "./shipOrder"   >Назначить грузовик и водителей</a>
-<a href=    "./closeOrder"  >Закрыть заказ</a>
-</body>
-</html>
+<a href=    "./confirmOrder">Добавить грузы</a><br/>
+<a href=    "./shipOrder"   >Назначить грузовик и водителей</a><br/>
+<a href=    "./closeOrder"  >Закрыть заказ</a><br/>

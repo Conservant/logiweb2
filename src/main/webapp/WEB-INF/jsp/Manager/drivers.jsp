@@ -1,15 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8"
+         language="java"
+         isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
-<html>
-<head>
-    <title>Водители</title>
-</head>
-<body>
-<h3>Водители</h3>
 
-
-<table>
+<table class="table table-bordered table-hover">
 
     <tr>
         <th>ИмяФамилия</th>
@@ -22,11 +17,9 @@
             <td><c:out value="${driver.name}"/></td>
             <td><c:out value="${driver.licNumber}"/></td>
             <td><c:out value="${driver.driverStatus}"/></td>
-              </tr>
+        </tr>
     </c:forEach>
 </table>
 
 <br/>
 <a href = "./newDriver">Добавить водителя</a>
-</body>
-</html>

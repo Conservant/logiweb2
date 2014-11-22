@@ -3,6 +3,7 @@ package com.tsystems.logiweb2.model;
 import com.tsystems.logiweb2.model.enums.OrderStatus;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Entity Order class
@@ -18,21 +19,24 @@ import javax.persistence.*;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Column(name = "ORDER_STATUS")
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> items;
+
     public Order() {
         orderStatus = OrderStatus.CREATED;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -42,5 +46,13 @@ public class Order {
 
     public void setOrderStatus(OrderStatus orderStatus) {
         this.orderStatus = orderStatus;
+    }
+
+    public List<OrderItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<OrderItem> items) {
+        this.items = items;
     }
 }

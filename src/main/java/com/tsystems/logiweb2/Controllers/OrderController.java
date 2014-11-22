@@ -22,15 +22,23 @@ public class OrderController {
     @RequestMapping("/orders")
     public String listOrders(ModelMap model) {
         model.addAttribute("orders", orderService.getAll());
-        return "WEB-INF/jsp/Manager/orders.jsp";
+        return "orders";
     }
+
+
+    @RequestMapping("/orders/{id}")
+    public String orderDetail(ModelMap model, @PathVariable Long id) {
+        model.addAttribute("order", orderService.findById(id));
+        return "orderDetail";
+    }
+
 
     @RequestMapping(value = "/newOrder", method = RequestMethod.GET)
     public String newTruck() {
         orderService.createOrder();
         return "WEB-INF/jsp/Manager/newOrder.jsp";
     }
-
+/*
     @RequestMapping(value = "/confirmOrder")
     public String createdOrders(ModelMap model) {
         model.addAttribute("createdOrders", orderService.getCreated());
@@ -54,5 +62,5 @@ public class OrderController {
         orderService.closeOrder(id);
         return listOrders(model);
     }
-
+*/
 }

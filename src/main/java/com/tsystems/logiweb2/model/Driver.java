@@ -28,7 +28,7 @@ public class Driver {
     @Enumerated(EnumType.STRING)
     private DriverStatus driverStatus;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(/*fetch = FetchType.EAGER, cascade = CascadeType.ALL*/)
     @JoinColumn(name = "TRUCK_ID")
     private Truck truck;
 

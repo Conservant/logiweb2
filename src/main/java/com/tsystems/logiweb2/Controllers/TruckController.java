@@ -22,7 +22,7 @@ public class TruckController {
     @RequestMapping("/trucks")
     public String listTrucks(ModelMap model) {
         model.addAttribute("trucks", truckService.getAll());
-        return "WEB-INF/jsp/Manager/trucks.jsp";
+        return "trucks";
     }
 
     @RequestMapping(value = "/newTruck", method = RequestMethod.GET)
