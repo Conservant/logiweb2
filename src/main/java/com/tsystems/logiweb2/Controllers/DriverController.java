@@ -6,6 +6,7 @@ import com.tsystems.logiweb2.model.enums.DriverStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -26,23 +27,19 @@ public class DriverController {
         return "drivers";
     }
 
-    @RequestMapping(value = "/newDriver", method = RequestMethod.GET)
-    public String newTruck() {
-        return "WEB-INF/jsp/Manager/newDriver.jsp";
+    @ModelAttribute("driver")
+    public Driver create() {
+        return new Driver();
+    }
+
+    @RequestMapping("/newDriver")
+    public String newDriver() {
+        return "newDriver";
     }
 
     @RequestMapping(value = "/newDriver", method = RequestMethod.POST)
-    public String newTruck(HttpServletRequest req, ModelMap model) {
-        Driver dr = new Driver();
-        dr.setName(req.getParameter("name"));
-        dr.setLicNumber(req.getParameter("licNumber"));
-        dr.setDriverStatus(DriverStatus.FREE);
-
-        System.out.println(dr);
-
-        driverService.save(dr);
-
-        return listDrivers(model);
+    public String addDriver(@ModelAttribute("driver") Driver driver) {
+        driverService.save(driver);
+        return "redirect:/newDriver.html?success=true";
     }
-
 }

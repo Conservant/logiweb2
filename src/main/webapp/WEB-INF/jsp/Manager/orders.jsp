@@ -1,9 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8"
          language="java"
          isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<%@ include file="../layout/taglib.jsp"%>
 
 <h3>Заказы</h3>
 

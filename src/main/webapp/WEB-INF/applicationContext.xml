@@ -10,11 +10,14 @@
        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <import resource="hibernate-context.xml"/>
+    <import resource="security.xml"/>
 
     <context:component-scan base-package="com.tsystems.logiweb2">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
     <jpa:repositories base-package="com.tsystems.logiweb2.Repository"/>
+
+
 
 </beans>

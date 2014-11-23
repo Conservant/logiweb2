@@ -23,10 +23,9 @@ public class DriverService {
     private DriverRepository driverRerository;
 
 
-    public Driver save(Driver driver) {
+    public void save(Driver driver) {
         driver.setDriverStatus(DriverStatus.FREE);
-        return driverRerository.save(driver);
-
+        driverRerository.save(driver);
     }
 
     public List<Driver> getAll() {

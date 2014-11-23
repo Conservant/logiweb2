@@ -1,8 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"
          language="java"
          isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ include file="../layout/taglib.jsp"%>
 
 <h3>Грузовики</h3>
 
@@ -30,4 +29,4 @@
 </table>
 
 <br/>
-<a href="./newTruck">Добавить грузовик</a>
+<a href="./newTruck.html">Добавить грузовик</a>

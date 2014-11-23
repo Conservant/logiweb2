@@ -2,6 +2,8 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="tilesx" uri="http://tiles.apache.org/tags-tiles-extras" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
 <!DOCTYPE html>
 <html>
 
@@ -46,10 +48,19 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
+
                         <li class="${current == 'index' ? 'active' : ''}"><a href="<spring:url value="/" />">Home</a></li>
-                        <li class="${current == 'trucks' ? 'active' : ''}"><a href="<spring:url value="/trucks.html" />">Грузовики</a></li>
-                        <li class="${current == 'drivers' ? 'active' : ''}"><a href="<spring:url value="/drivers.html" />">Водители</a></li>
-                        <li class="${current == 'orders' ? 'active' : ''}"><a href="<spring:url value="/orders.html" />">Заказы</a></li>
+                        <security:authorize access="hasRole('ROLE_MANAGER')">
+                            <li class="${current == 'trucks' ? 'active' : ''}"><a href="<spring:url value="/trucks.html" />">Грузовики</a></li>
+                            <li class="${current == 'drivers' ? 'active' : ''}"><a href="<spring:url value="/drivers.html" />">Водители</a></li>
+                            <li class="${current == 'orders' ? 'active' : ''}"><a href="<spring:url value="/orders.html" />">Заказы</a></li>
+                        </security:authorize>
+                        <security:authorize access="! isAuthenticated()">
+                            <li class="${current == 'login' ? 'active' : ''}"><a href="<spring:url value="/login.html" />">Login</a></li>
+                        </security:authorize>
+                        <security:authorize access="isAuthenticated()">
+                            <li><a href="<spring:url value="/logout" />">Logout</a></li>
+                        </security:authorize>
                     </ul>
 
                 </div><!--/.nav-collapse -->

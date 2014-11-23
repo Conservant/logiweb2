@@ -1,22 +1,28 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: StarKiller
-  Date: 20.11.2014
-  Time: 2:29
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
-    <form action="./newTruck" method="POST">
-        Truck reg number: <input type="text" name="regNumber"/><br/>
-        Truck count drivers: <input type="text" name="reqDrivers"/><br/>
-        Truck capacity: <input type="text" name="capacity"/><br/>
-        <input type="submit" value="ADD TRUCK">
+<%@ include file="../layout/taglib.jsp"%>
 
-    </form>
-</body>
-</html>
+<form:form commandName="truck">
+
+    <c:if test="${param.success eq true}">
+        <div class = "alert alert-success">Грузовик добавлен</div>
+    </c:if>
+
+    <div class="form-group">
+        <label for="regNumber" class="col-sm-2 control-label">Регистрационный номер</label>
+        <div class="col-sm-10">
+            <form:input path="regNumber" cssClass="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="capacity" class="col-sm-2 control-label">Вместимость (в тоннах):</label>
+        <div class="col-sm-10">
+            <form:input path="capacity" cssClass="form-control"/>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Добавить" class="btn btn-lg btn-primary">
+    </div>
+
+</form:form>

@@ -1,8 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8"
          language="java"
          isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
+<%@ include file="../layout/taglib.jsp"%>
+
+
 
 <table class="table table-bordered table-hover">
 
@@ -22,4 +23,4 @@
 </table>
 
 <br/>
-<a href = "./newDriver">Добавить водителя</a>
+<a href="./newDriver.html">Добавить водителя</a>

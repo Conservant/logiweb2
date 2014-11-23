@@ -28,7 +28,7 @@ public class OrderController {
 
     @RequestMapping("/orders/{id}")
     public String orderDetail(ModelMap model, @PathVariable Long id) {
-        model.addAttribute("order", orderService.findById(id));
+        model.addAttribute("order", orderService.findOrderWithItems(id));
         return "orderDetail";
     }
 
