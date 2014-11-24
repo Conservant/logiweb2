@@ -1,9 +1,13 @@
 package com.tsystems.logiweb2.Controllers;
 
+import com.tsystems.logiweb2.Services.OrderItemService;
 import com.tsystems.logiweb2.Services.OrderService;
+import com.tsystems.logiweb2.model.Order;
+import com.tsystems.logiweb2.model.OrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +23,9 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private OrderItemService orderItemService;
+
     @RequestMapping("/orders")
     public String listOrders(ModelMap model) {
         model.addAttribute("orders", orderService.getAll());
@@ -32,12 +39,42 @@ public class OrderController {
         return "orderDetail";
     }
 
-
+/*
     @RequestMapping(value = "/newOrder", method = RequestMethod.GET)
     public String newTruck() {
         orderService.createOrder();
         return "WEB-INF/jsp/Manager/newOrder.jsp";
+    }*/
+
+    @ModelAttribute("item")
+    public OrderItem createItem() {
+        return new OrderItem();
     }
+
+    @RequestMapping(value = "/orders/{id}", method = RequestMethod.POST)
+    public String addOrderItem(@ModelAttribute("item") OrderItem item, @PathVariable Long id) {
+
+        orderItemService.save(item, id);
+
+        return "redirect:/orders/"+id;
+
+    }
+
+
+    @ModelAttribute("order")
+    public Order create() {
+        return new Order();
+    }
+
+    @RequestMapping("/newOrder")
+    public String addDriver(ModelMap model, @ModelAttribute("order") Order order) {
+        orderService.save(order);
+        return "redirect:/orders";
+    }
+
+
+
+
 /*
     @RequestMapping(value = "/confirmOrder")
     public String createdOrders(ModelMap model) {

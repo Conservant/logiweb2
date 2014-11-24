@@ -45,6 +45,11 @@ public class OrderService {
         order.setItems(items);
         return order;
     }
+
+    public void save(Order order) {
+        order.setOrderStatus(OrderStatus.CREATED);
+        orderRepository.save(order);
+    }
 /*
     @Override
     public List<Order> getCreated() {

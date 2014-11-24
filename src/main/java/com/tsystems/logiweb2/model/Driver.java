@@ -1,8 +1,10 @@
 package com.tsystems.logiweb2.model;
 
+import com.tsystems.logiweb2.Annotation.UniqueNumber;
 import com.tsystems.logiweb2.model.enums.DriverStatus;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
  * Entity Driver class
@@ -18,9 +20,12 @@ public class Driver {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "LICENSE_NUMBER")
+    @Size(min = 4, message = "В водительских правах 6 символов!")
+    @UniqueNumber(message = "Водитель с таким номером прав уже существует!")
+    @Column(name = "LICENSE_NUMBER", unique = true)
     private String licNumber;
 
+    @Size(min = 6, message = "Слишком короткое имя!")
     @Column(name = "NAME")
     private String name;
 

@@ -9,4 +9,5 @@ import java.util.List;
  * Created by StarKiller on 19.11.2014.
  */
 public interface DriverRepository extends JpaRepository<Driver, Long>{
+    Driver findByLicNumber(String s);
 }

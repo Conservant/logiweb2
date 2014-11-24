@@ -1,5 +1,6 @@
 package com.tsystems.logiweb2.model;
 
+import com.tsystems.logiweb2.Annotation.UniqueNumber;
 import com.tsystems.logiweb2.model.enums.CapacityClass;
 
 import javax.persistence.*;
@@ -19,7 +20,8 @@ public class Truck {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "REG_NUMBER")
+    @UniqueNumber(message = "Грузовик с таким номером уже существует!")
+    @Column(name = "REG_NUMBER", unique = true)
     private String regNumber;
 
     @Column(name = "REQ_NUM_OF_DRIVERS")

@@ -9,4 +9,5 @@ import java.util.List;
  * Created by StarKiller on 20.11.2014.
  */
 public interface TruckRepository extends JpaRepository<Truck, Long>{
+    Truck findByRegNumber(String s);
 }
