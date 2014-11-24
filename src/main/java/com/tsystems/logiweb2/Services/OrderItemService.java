@@ -23,9 +23,5 @@ public class OrderItemService {
         Order order = orderRepository.findOne(idOrder);
         item.setOrder(order);
         orderItemRepository.save(item);
-        return;
     }
-
-
-
 }

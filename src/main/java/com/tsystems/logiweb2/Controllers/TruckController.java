@@ -33,7 +33,7 @@ public class TruckController {
 
     @RequestMapping("/newTruck")
     public String newDriver() {
-        return "newDriver";
+        return "newTruck";
     }
 
     @RequestMapping(value = "/newTruck", method = RequestMethod.POST)
