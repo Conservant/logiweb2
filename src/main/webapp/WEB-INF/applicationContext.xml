@@ -18,7 +18,4 @@
 
     <jpa:repositories base-package="com.tsystems.logiweb2.Repository"/>
 
-
-
-
 </beans>

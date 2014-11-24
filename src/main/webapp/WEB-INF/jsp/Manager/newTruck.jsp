@@ -11,6 +11,7 @@
         <label for="regNumber" class="col-sm-2 control-label">Рег. номер</label>
         <div class="col-sm-10">
             <form:input path="regNumber" cssClass="form-control"/>
+            <form:errors path="regNumber"/>
         </div>
     </div>
 
@@ -18,6 +19,7 @@
         <label for="capacity" class="col-sm-2 control-label">Вместимость:</label>
         <div class="col-sm-10">
             <form:input path="capacity" cssClass="form-control"/>
+            <form:errors path="capacity"/>
         </div>
     </div>
 
@@ -25,6 +27,7 @@
         <label for="requiredNumberOfDrivers" class="col-sm-2 control-label">Число водителей:</label>
         <div class="col-sm-10">
             <form:input path="requiredNumberOfDrivers" cssClass="form-control"/>
+            <form:errors path="requiredNumberOfDrivers"/>
         </div>
     </div>
 

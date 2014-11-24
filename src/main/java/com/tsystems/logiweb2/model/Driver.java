@@ -11,10 +11,6 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "DRIVERS")
-@NamedQueries({
-        @NamedQuery(name = "Driver.findAll", query = "SELECT d FROM Driver d"),
-        @NamedQuery(name = "Driver.getByLicNumber", query = "SELECT d FROM Driver d WHERE d.licNumber = :licNumber")}
-)
 public class Driver {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -83,10 +79,8 @@ public class Driver {
     @Override
     public String toString() {
         return "Driver{" +
-                "id=" + id +
                 ", licNumber='" + licNumber + '\'' +
                 ", name='" + name + '\'' +
-                ", driverStatus=" + driverStatus +
                 '}';
     }
 }

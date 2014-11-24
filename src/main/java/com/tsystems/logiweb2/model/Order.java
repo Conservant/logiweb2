@@ -10,12 +10,6 @@ import java.util.List;
  */
 @Entity
 @Table(name = "ORDERS")
-@NamedQueries({
-        @NamedQuery(name = "Order.getAll", query = "SELECT o FROM Order o"),
-        @NamedQuery(name = "Order.getByNumber", query = "SELECT o FROM Order o WHERE o.id = :id"),
-        @NamedQuery(name = "Order.getByStatus", query = "SELECT o FROM Order o WHERE o.orderStatus = :orderStatus")
-})
-
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +21,10 @@ public class Order {
 
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<OrderItem> items;
+
+    @OneToOne
+    @JoinColumn(name = "TRUCK_ID")
+    private Truck truck;
 
     public Order() {
         orderStatus = OrderStatus.CREATED;
@@ -54,5 +52,13 @@ public class Order {
 
     public void setItems(List<OrderItem> items) {
         this.items = items;
+    }
+
+    public Truck getTruck() {
+        return truck;
+    }
+
+    public void setTruck(Truck truck) {
+        this.truck = truck;
     }
 }

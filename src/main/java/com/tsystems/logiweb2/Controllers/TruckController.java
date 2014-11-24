@@ -5,11 +5,13 @@ import com.tsystems.logiweb2.model.Truck;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /**
  * Created by StarKiller on 15.11.2014.
@@ -32,12 +34,15 @@ public class TruckController {
     }
 
     @RequestMapping("/newTruck")
-    public String newDriver() {
+    public String newDriver(ModelMap model) {
         return "newTruck";
     }
 
     @RequestMapping(value = "/newTruck", method = RequestMethod.POST)
-    public String addDriver(@ModelAttribute("truck") Truck truck) {
+    public String addDriver(ModelMap model, @Valid @ModelAttribute("truck") Truck truck, BindingResult result) {
+        if (result.hasErrors()) {
+            newDriver(model);
+        }
         truckService.save(truck);
         return "redirect:/newTruck.html?success=true";
     }

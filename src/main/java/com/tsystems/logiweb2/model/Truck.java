@@ -4,6 +4,9 @@ import com.tsystems.logiweb2.Annotation.UniqueNumber;
 import com.tsystems.logiweb2.model.enums.CapacityClass;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -11,19 +14,18 @@ import java.util.List;
  */
 @Entity
 @Table(name = "TRUCKS")
-@NamedQueries({
-        @NamedQuery(name = "Truck.allTrucks", query = "SELECT t FROM Truck t"),
-        @NamedQuery(name = "Truck.getByRegNumber", query = "SELECT t FROM Truck t WHERE t.regNumber = :regNumber")}
-)
 public class Truck {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @UniqueNumber(message = "Грузовик с таким номером уже существует!")
+    @Pattern(regexp = "[A-Z]{1}[0-9]{3}[A-Z]{2}",
+             message = "Неверно указан номер")
     @Column(name = "REG_NUMBER", unique = true)
     private String regNumber;
 
+    @Min(value = 1, message = "Число водителей не может быть меньше 1")
     @Column(name = "REQ_NUM_OF_DRIVERS")
     private Integer requiredNumberOfDrivers;
 
@@ -33,6 +35,9 @@ public class Truck {
     @Column(name = "CAPACITY_CLASS")
     @Enumerated(EnumType.STRING)
     private CapacityClass capacityClass;
+
+    @OneToOne(mappedBy = "truck")
+    private Order order;
 
     @OneToMany(mappedBy = "truck")
     private List<Driver> drivers;
@@ -86,6 +91,14 @@ public class Truck {
         this.capacityClass = capacityClass;
     }
 
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
     public List<Driver> getDrivers() {
         return drivers;
     }
@@ -101,11 +114,9 @@ public class Truck {
     @Override
     public String toString() {
         return "Truck{" +
-                "id=" + id +
                 ", RegNumber='" + regNumber + '\'' +
                 ", requiredNumberOfDrivers=" + requiredNumberOfDrivers +
                 ", capacity=" + capacity +
-                ", capacityClass=" + capacityClass +
                 "}";
     }
 }
