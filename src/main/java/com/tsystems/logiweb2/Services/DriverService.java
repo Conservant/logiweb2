@@ -29,14 +29,7 @@ public class DriverService {
     }
 
     public List<Driver> getAll() {
-
         List<Driver> drivers = driverRerository.findAll();
-
-        for (Driver dr: drivers) {
-            System.out.println(dr);
-        }
-
         return drivers;
-
     }
 }

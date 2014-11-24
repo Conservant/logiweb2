@@ -1,6 +1,7 @@
 package com.tsystems.logiweb2.Repository;
 
 import com.tsystems.logiweb2.model.Driver;
+import com.tsystems.logiweb2.model.enums.DriverStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -10,4 +11,5 @@ import java.util.List;
  */
 public interface DriverRepository extends JpaRepository<Driver, Long>{
     Driver findByLicNumber(String s);
+    List<Driver> findByDriverStatus(DriverStatus status);
 }

@@ -88,6 +88,6 @@
     </c:forEach>
 </table>
 
-<button type="button" class="btn btn-primary btn-lg">
+<a href="<spring:url value="/order/confirm/${order.id}.html" /> " class="btn btn-primary btn-lg">
 Подтвердить заказ
-</button>
+</a>

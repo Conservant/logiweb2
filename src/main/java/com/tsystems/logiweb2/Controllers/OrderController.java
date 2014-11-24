@@ -4,6 +4,7 @@ import com.tsystems.logiweb2.Services.OrderItemService;
 import com.tsystems.logiweb2.Services.OrderService;
 import com.tsystems.logiweb2.model.Order;
 import com.tsystems.logiweb2.model.OrderItem;
+import com.tsystems.logiweb2.model.enums.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,48 +33,40 @@ public class OrderController {
         return "orders";
     }
 
-
     @RequestMapping("/orders/{id}")
     public String orderDetail(ModelMap model, @PathVariable Long id) {
         model.addAttribute("order", orderService.findOrderWithItems(id));
         return "orderDetail";
     }
 
-/*
-    @RequestMapping(value = "/newOrder", method = RequestMethod.GET)
-    public String newTruck() {
-        orderService.createOrder();
-        return "WEB-INF/jsp/Manager/newOrder.jsp";
-    }*/
-
     @ModelAttribute("item")
     public OrderItem createItem() {
-        return new OrderItem();
+        OrderItem item = new OrderItem();
+        return item;
     }
 
     @RequestMapping(value = "/orders/{id}", method = RequestMethod.POST)
     public String addOrderItem(@ModelAttribute("item") OrderItem item, @PathVariable Long id) {
-
         orderItemService.save(item, id);
-
-        return "redirect:/orders/"+id;
-
+        return "redirect:/orders/"+id+".html";
     }
-
 
     @ModelAttribute("order")
     public Order create() {
         return new Order();
     }
+//
+//    @RequestMapping("/newOrder")
+//    public String addDriver(ModelMap model, @ModelAttribute("order") Order order) {
+//        orderService.save(order);
+//        return "redirect:/orders";
+//    }
 
-    @RequestMapping("/newOrder")
-    public String addDriver(ModelMap model, @ModelAttribute("order") Order order) {
-        orderService.save(order);
-        return "redirect:/orders";
+    @RequestMapping("/order/confirm/{id}")
+    public String confirmOrder(@PathVariable Long id) {
+        orderService.changeStatus(id, OrderStatus.CONFIRMED);
+        return "redirect:/orders.html";
     }
-
-
-
 
 /*
     @RequestMapping(value = "/confirmOrder")

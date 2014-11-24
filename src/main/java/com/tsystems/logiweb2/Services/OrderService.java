@@ -28,12 +28,6 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
-    public Order createOrder() {
-        Order order = new Order();
-        order.setOrderStatus(OrderStatus.CREATED);
-        return orderRepository.save(order);
-    }
-
     public Order findById(Long id) {
         return orderRepository.findOne(id);
     }
@@ -49,6 +43,11 @@ public class OrderService {
     public void save(Order order) {
         order.setOrderStatus(OrderStatus.CREATED);
         orderRepository.save(order);
+    }
+
+    public void changeStatus(Long id, OrderStatus status) {
+        Order order = findById(id);
+        order.setOrderStatus(status);
     }
 /*
     @Override
