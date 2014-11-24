@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by StarKiller on 17.11.2014.
+ * Class of service layer for working with trucks
  */
 @Service
 @Transactional
@@ -22,6 +22,11 @@ public class TruckService {
     @Autowired
     private TruckRepository truckRepository;
 
+    /**
+     * Method adds new truck to database
+     *
+     * @param truck entity object to adding
+     */
     public void save(Truck truck) {
         logger.info("Service method 'save' for new truck called with argument" + truck);
         Double cap = truck.getCapacity();
@@ -35,6 +40,11 @@ public class TruckService {
         truckRepository.save(truck);
     }
 
+    /**
+     * Method returns list of all drivers from database
+     *
+     * @return list of all drivers
+     */
     public List<Truck> getAll() {
         logger.info("Service method 'getAll' for trucks called");
         return truckRepository.findAll();

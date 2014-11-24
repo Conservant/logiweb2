@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 /**
- * Created by StarKiller on 23.11.2014.
+ * Class provided CRUD-operations for OrderItem entity
+ * Operations implements by Spring Data JPA
  */
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
     List<OrderItem> findByOrder(Order order);

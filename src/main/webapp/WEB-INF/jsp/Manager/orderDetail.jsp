@@ -9,10 +9,11 @@
 <h2>Заказ № ${order.id}</h2>
 
 <!-- Button trigger modal -->
+<c:if test="${order.orderStatus == 'CREATED'}">
 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
     Добавить в заказ
 </button>
-
+</c:if>
 <!-- Modal -->
 
 <form:form commandName="item" cssClass="form-horizontal">
@@ -88,6 +89,28 @@
     </c:forEach>
 </table>
 
-<a href="<spring:url value="/order/confirm/${order.id}.html" /> " class="btn btn-primary btn-lg">
-Подтвердить заказ
-</a>
+
+
+<c:if test="${order.orderStatus == 'CREATED'}">
+    <a href="<spring:url value="/order/confirm/${order.id}.html" /> " class="btn btn-primary btn-lg">
+        Подтвердить заказ
+    </a>
+</c:if>
+
+<c:if test="${order.orderStatus == 'CONFIRMED' and order.truck == null}">
+    <a href="<spring:url value="/order/attachTruck/${order.id}.html" /> " class="btn btn-primary btn-lg">
+        Назначить грузовик
+    </a>
+</c:if>
+
+<c:if test="${order.orderStatus == 'CONFIRMED' and order.truck != null}">
+    <a href="<spring:url value="/order/attachDrivers/${order.id}.html" /> " class="btn btn-primary btn-lg">
+        Отправить в рейс
+    </a>
+</c:if>
+
+<c:if test="${order.orderStatus == 'PERFORMED'}">
+    <a href="<spring:url value="/order/close/${order.id}.html" /> " class="btn btn-primary btn-lg">
+        Закрыть заказ
+    </a>
+</c:if>

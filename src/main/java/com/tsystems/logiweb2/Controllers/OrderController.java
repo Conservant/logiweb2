@@ -2,9 +2,7 @@ package com.tsystems.logiweb2.Controllers;
 
 import com.tsystems.logiweb2.Services.OrderItemService;
 import com.tsystems.logiweb2.Services.OrderService;
-import com.tsystems.logiweb2.model.Order;
 import com.tsystems.logiweb2.model.OrderItem;
-import com.tsystems.logiweb2.model.enums.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by StarKiller on 20.11.2014.
@@ -51,46 +48,21 @@ public class OrderController {
         return "redirect:/orders/"+id+".html";
     }
 
-    @ModelAttribute("order")
-    public Order create() {
-        return new Order();
-    }
-//
-//    @RequestMapping("/newOrder")
-//    public String addDriver(ModelMap model, @ModelAttribute("order") Order order) {
-//        orderService.save(order);
-//        return "redirect:/orders";
-//    }
-
-    @RequestMapping("/order/confirm/{id}")
-    public String confirmOrder(@PathVariable Long id) {
-        orderService.changeStatus(id, OrderStatus.CONFIRMED);
+    @RequestMapping("/newOrder")
+    public String addDriver() {
+        orderService.save();
         return "redirect:/orders.html";
     }
 
-/*
-    @RequestMapping(value = "/confirmOrder")
-    public String createdOrders(ModelMap model) {
-        model.addAttribute("createdOrders", orderService.getCreated());
-        return "WEB-INF/jsp/Manager/createdOrders.jsp";
+    @RequestMapping("/order/confirm/{id}")
+    public String confirmOrder(@PathVariable Long id) {
+        orderService.confirmOrder(id);
+        return "redirect:/orders.html";
     }
 
-    @RequestMapping(value = "/shipOrder")
-    public String confirmedOrders(ModelMap model) {
-        model.addAttribute("confirmedOrders", orderService.getConfirmed());
-        return "WEB-INF/jsp/Manager/confirmedOrders.jsp";
-    }
-
-    @RequestMapping(value = "/closeOrder")
-    public String performedOrders(ModelMap model) {
-        model.addAttribute("performedOrders", orderService.getPerformed());
-        return "WEB-INF/jsp/Manager/performedOrders.jsp";
-    }
-
-    @RequestMapping("/{id}/delete")
-    public String closeOrder(@PathVariable Long id, ModelMap model) {
+    @RequestMapping("order/close/{id}")
+    public String close(@PathVariable Long id) {
         orderService.closeOrder(id);
-        return listOrders(model);
+        return "redirect:/orders.html";
     }
-*/
 }

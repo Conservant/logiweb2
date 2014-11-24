@@ -6,7 +6,6 @@ import com.tsystems.logiweb2.model.enums.CapacityClass;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.util.List;
 
 /**

@@ -4,7 +4,8 @@ import com.tsystems.logiweb2.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * Created by StarKiller on 22.11.2014.
+ * Class provided CRUD-operations for User entity
+ * Operations implements by Spring Data JPA
  */
 public interface UserRepository extends JpaRepository<User, Long> {
 }

@@ -26,11 +26,10 @@
 </table>
 <br/>
 
-<form:form commandName="order" action="/newOrder">
-    <div class="form-group">
-        <input type="submit" value="Создать заказ" class="btn btn-lg btn-primary">
-    </div>
-</form:form>
+<a href="<spring:url value="/newOrder.html" /> "  class="btn btn-lg btn-primary">Создать заказ</a>
+
+
+
 <a href =   "./newOrder"    >Создать заказ</a><br/>
 <a href=    "./confirmOrder">Добавить грузы</a><br/>
 <a href=    "./shipOrder"   >Назначить грузовик и водителей</a><br/>

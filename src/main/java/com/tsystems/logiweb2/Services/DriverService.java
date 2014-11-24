@@ -2,7 +2,6 @@ package com.tsystems.logiweb2.Services;
 
 import com.tsystems.logiweb2.Repository.DriverRepository;
 
-import com.tsystems.logiweb2.Services.DriverService;
 import com.tsystems.logiweb2.model.Driver;
 import com.tsystems.logiweb2.model.enums.DriverStatus;
 import org.apache.log4j.Logger;
@@ -13,7 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by StarKiller on 17.11.2014.
+ * Class of service layer for working with drivers.
+ * Provides layer operations.
  */
 @Service
 @Transactional
@@ -23,23 +23,30 @@ public class DriverService {
 
 
     @Autowired
-    private DriverRepository driverRerository;
+    private DriverRepository driverRepository;
 
-
+    /**
+     * Method adds new driver to database.
+     *
+     * @param driver entity object to adding
+     */
     public void save(Driver driver) {
         logger.info("Service method 'save' for driver called with argument " + driver);
         driver.setDriverStatus(DriverStatus.FREE);
-        driverRerository.save(driver);
+        driverRepository.save(driver);
     }
 
+    /**
+     * Method gets list of all drivers from database
+     *
+     * @return list of all drivers
+     */
     public List<Driver> getAll() {
         logger.info("Service  method 'get All' for drivers called");
-        List<Driver> drivers = driverRerository.findAll();
-        return drivers;
+        return driverRepository.findAll();
     }
 
     public List<Driver> getFreeDrivers() {
-        return driverRerository.findByDriverStatus(DriverStatus.FREE);
+        return driverRepository.findByDriverStatus(DriverStatus.FREE);
     }
-
 }

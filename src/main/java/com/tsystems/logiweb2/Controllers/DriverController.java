@@ -2,7 +2,6 @@ package com.tsystems.logiweb2.Controllers;
 
 import com.tsystems.logiweb2.Services.DriverService;
 import com.tsystems.logiweb2.model.Driver;
-import com.tsystems.logiweb2.model.enums.DriverStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.security.Principal;
 

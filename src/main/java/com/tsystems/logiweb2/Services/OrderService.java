@@ -8,13 +8,11 @@ import com.tsystems.logiweb2.model.Driver;
 import com.tsystems.logiweb2.model.Order;
 import com.tsystems.logiweb2.model.OrderItem;
 import com.tsystems.logiweb2.model.Truck;
-import com.tsystems.logiweb2.model.enums.DriverStatus;
 import com.tsystems.logiweb2.model.enums.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,61 +50,52 @@ public class OrderService {
         return order;
     }
 
-    public void save(Order order) {
+    public void save() {
+        Order order = new Order();
         order.setOrderStatus(OrderStatus.CREATED);
         orderRepository.save(order);
     }
 
-    public void changeStatus(Long id, OrderStatus status) {
+    public void closeOrder(Long id) {
         Order order = findById(id);
-        order.setOrderStatus(status);
+        if (order.getOrderStatus() == OrderStatus.PERFORMED) {
+            order.setOrderStatus(OrderStatus.CLOSED);
+            Truck truck = truckRepository.findByRegNumber(order.getTruck().getRegNumber());
+            List<Driver> drivers = driverRepository.findByTruck(truck);
+            for(Driver dr: drivers) {
+                dr.setTruck(null);
+                driverRepository.save(dr);
+            }
+            order.setTruck(null);
+            orderRepository.save(order);
+        }
     }
 
-    public void attachTruck(String regNumber, Long id) {
-        Truck truck = truckRepository.findByRegNumber(regNumber);
-        if (truck.getOrder() != null) {
+    public void confirmOrder(Long id) {
+        Order order = orderRepository.getOne(id);
+        if (order.getItems().isEmpty()) {
 
         }
+
+        order.setOrderStatus(OrderStatus.CONFIRMED);
+    }
+
+    public void attachTruck(Long id, String regNumber) {
+
+        Truck truck = truckRepository.findByRegNumber(regNumber);
+
+        if (truck.getOrder() != null) {
+            System.out.println("фура занята");
+            return;
+        }
+
         Order order = orderRepository.findOne(id);
         order.setTruck(truck);
         orderRepository.save(order);
     }
 
-    public void attachDrivers(List<String> licNumbers, Long id) {
-        List<Driver> drivers = new ArrayList<>();
-        for (String number: licNumbers) {
-            drivers.add(driverRepository.findByLicNumber(number));
-        }
-
-        Driver driver = driverRepository.findByLicNumber(licNumber);
-        if (driver.getDriverStatus() != DriverStatus.FREE) {
-
-        }
-        Truck truck = truckRepository.findOne(id);
-        driver.setTruck(truck);
-        driverRepository.save(driver);
+    public void attachDrivers(Long id) {
+        id = 3l;
+        System.out.println(id);
     }
-
-/*
-    @Override
-    public List<Order> getCreated() {
-        return orderDAO.getOrdersByStatus(OrderStatus.CREATED);
-    }
-
-    @Override
-    public List<Order> getConfirmed() {
-        return orderDAO.getOrdersByStatus(OrderStatus.CONFIRMED);
-    }
-
-    @Override
-    public List<Order> getPerformed() {
-        return orderDAO.getOrdersByStatus(OrderStatus.PERFORMED);
-    }
-
-    @Override
-    public Order closeOrder(Long id) {
-        Order order = orderDAO.getById(id);
-        order.setOrderStatus(OrderStatus.CLOSED);
-        return orderDAO.save(order);
-    }*/
 }
