@@ -2,6 +2,7 @@ package com.tsystems.logiweb2.model;
 
 import com.tsystems.logiweb2.Annotation.UniqueNumber;
 import com.tsystems.logiweb2.model.enums.DriverStatus;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -21,6 +22,7 @@ public class Driver {
     @Column(name = "LICENSE_NUMBER", unique = true)
     private String licenseNumber;
 
+    @NotBlank(message = "Имя не может быть пустым!")
     @Size(min = 6, message = "Слишком короткое имя!")
     @Column(name = "NAME")
     private String name;

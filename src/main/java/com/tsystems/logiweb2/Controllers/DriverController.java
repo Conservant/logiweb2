@@ -45,6 +45,6 @@ public class DriverController {
             return newDriver(model);
         }
         driverService.save(driver);
-        return "redirect:/newDriver.html?success=true";
+        return "redirect:/Manager/newDriver.html?success=true";
     }
 }

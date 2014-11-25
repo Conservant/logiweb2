@@ -37,12 +37,12 @@
                 rules: {
                     name: {
                         required: true,
-                        minlength: 3
+                        minlength: 6
                     },
                     licenseNumber: {
                         required: true,
                         minLength: 6
-                    }
+                    },
                 },
                 highlight: function(element) {
                     $(element).closest('.form-group').removeClass('has-success').addClass('has-error');

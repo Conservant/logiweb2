@@ -41,9 +41,9 @@ public class TruckController {
     @RequestMapping(value = "/newTruck", method = RequestMethod.POST)
     public String addTruck(ModelMap model, @Valid @ModelAttribute("truck") Truck truck, BindingResult result) {
         if (result.hasErrors()) {
-            newDriver(model);
+            return newDriver(model);
         }
         truckService.save(truck);
-        return "redirect:/newTruck.html?success=true";
+        return "redirect:/Manager/newTruck.html?success=true";
     }
 }

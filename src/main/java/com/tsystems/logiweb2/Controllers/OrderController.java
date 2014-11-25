@@ -30,7 +30,7 @@ public class OrderController {
     @RequestMapping("/orders")
     public String listOrders(ModelMap model) {
         model.addAttribute("orders", orderService.getAll());
-        return "/Manager/orders";
+        return "orders";
     }
 
     @RequestMapping("/orders/{id}")

@@ -17,7 +17,7 @@
 
             <tr>
                 <td>
-                    <a href="<spring:url value="/orders/${order.id}.html" />"><c:out value="${order.id}"/></a>
+                    <a href="<spring:url value="/Manager/orders/${order.id}.html" />"><c:out value="${order.id}"/></a>
                 </td>
                 <td><c:out value="${order.orderStatus}"/></td>
             </tr>

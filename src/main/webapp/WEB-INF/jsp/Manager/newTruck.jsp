@@ -14,6 +14,7 @@
             <form:errors path="regNumber"/>
         </div>
     </div>
+    <br/>
 
     <div class="form-group">
         <label for="capacity" class="col-sm-2 control-label">Вместимость:</label>
@@ -22,6 +23,7 @@
             <form:errors path="capacity"/>
         </div>
     </div>
+    <br/>
 
     <div class="form-group">
         <label for="requiredNumberOfDrivers" class="col-sm-2 control-label">Число водителей:</label>
@@ -30,6 +32,7 @@
             <form:errors path="requiredNumberOfDrivers"/>
         </div>
     </div>
+    <br/>
 
     <div class="form-group">
         <input type="submit" value="Добавить" class="btn btn-lg btn-primary">
