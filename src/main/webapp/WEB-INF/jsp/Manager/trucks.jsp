@@ -12,8 +12,8 @@
         <th>Рег.номер</th>
         <th>Число водителей</th>
         <th>Класс вместимости</th>
+        <th>Номер заказа</th>
     </tr>
-
 
     <c:forEach items="${trucks}" var="tr">
         <tr>
@@ -21,12 +21,13 @@
             <td><c:out value="${tr.regNumber}"/></td>
             <td><c:out value="${tr.requiredNumberOfDrivers}"/></td>
             <td><c:out value="${tr.capacityClass}"/></td>
-
+            <td><c:out value="${tr.order == null ? '---' : tr.order.id}"/></td>
         </tr>
     </c:forEach>
-
 
 </table>
 
 <br/>
-<a href="./newTruck.html">Добавить грузовик</a>
+<a href="<spring:url value="/Manager/newTruck.html" /> " class="btn btn-primary btn-lg">
+    Добавить грузовик
+</a>

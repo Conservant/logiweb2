@@ -3,7 +3,7 @@
 <tiles-definitions>
     <definition name="baseLayout" template="/WEB-INF/jsp/layout/layout.jsp">
         <put-attribute name="title" value="Грузоперевозки 2.0"/>
-        <put-attribute name="header" value="/WEB-INF/jsp/layout/header.jsp"/>
+
         <put-attribute name="content" value=""/>
         <put-attribute name="footer" value="/WEB-INF/jsp/layout/footer.jsp"/>
     </definition>
@@ -53,6 +53,18 @@
         <put-attribute name="current" value="login"/>
         <put-attribute name="content" value="/WEB-INF/jsp/login.jsp"/>
         <put-attribute name="title" value="login"/>
+    </definition>
+
+    <definition name="attachTruck" extends="baseLayout">
+        <put-attribute name="title" value="Назначение грузовика"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/Manager/attachTruck.jsp"/>
+        <put-attribute name="current" value=""/>
+    </definition>
+
+    <definition name="attachDriver" extends="baseLayout">
+        <put-attribute name="title" value="Назначение водителей"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/Manager/attachDriver.jsp"/>
+        <put-attribute name="current" value=""/>
     </definition>
 
 </tiles-definitions>

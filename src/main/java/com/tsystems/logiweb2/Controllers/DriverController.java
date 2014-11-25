@@ -17,6 +17,7 @@ import java.security.Principal;
  * Created by StarKiller on 17.11.2014.
  */
 @Controller
+@RequestMapping("/Manager")
 public class DriverController {
 
     @Autowired
@@ -39,7 +40,7 @@ public class DriverController {
     }
 
     @RequestMapping(value = "/newDriver", method = RequestMethod.POST)
-    public String addDriver(ModelMap model, @Valid @ModelAttribute("driver") Driver driver, BindingResult result, Principal principal) {
+    public String addDriver(ModelMap model, @Valid @ModelAttribute("driver") Driver driver, BindingResult result) {
         if (result.hasErrors()) {
             return newDriver(model);
         }

@@ -19,7 +19,7 @@ public class Driver {
     @Size(min = 4, message = "В водительских правах 6 символов!")
     @UniqueNumber(message = "Водитель с таким номером прав уже существует!")
     @Column(name = "LICENSE_NUMBER", unique = true)
-    private String licNumber;
+    private String licenseNumber;
 
     @Size(min = 6, message = "Слишком короткое имя!")
     @Column(name = "NAME")
@@ -29,7 +29,7 @@ public class Driver {
     @Enumerated(EnumType.STRING)
     private DriverStatus driverStatus;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "TRUCK_ID")
     private Truck truck;
 
@@ -44,12 +44,12 @@ public class Driver {
         this.id = id;
     }
 
-    public String getLicNumber() {
-        return licNumber;
+    public String getLicenseNumber() {
+        return licenseNumber;
     }
 
-    public void setLicNumber(String licNumber) {
-        this.licNumber = licNumber;
+    public void setLicenseNumber(String licenseNumber) {
+        this.licenseNumber = licenseNumber;
     }
 
     public String getName() {
@@ -79,7 +79,7 @@ public class Driver {
     @Override
     public String toString() {
         return "Driver{" +
-                ", licNumber='" + licNumber + '\'' +
+                ", licenseNumber='" + licenseNumber + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }

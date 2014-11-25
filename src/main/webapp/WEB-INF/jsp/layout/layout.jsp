@@ -55,9 +55,9 @@
 
                         <li class="${current == 'index' ? 'active' : ''}"><a href="<spring:url value="/" />">Home</a></li>
                         <security:authorize access="hasRole('ROLE_MANAGER')">
-                            <li class="${current == 'trucks' ? 'active' : ''}"><a href="<spring:url value="/trucks.html" />">Грузовики</a></li>
-                            <li class="${current == 'drivers' ? 'active' : ''}"><a href="<spring:url value="/drivers.html" />">Водители</a></li>
-                            <li class="${current == 'orders' ? 'active' : ''}"><a href="<spring:url value="/orders.html" />">Заказы</a></li>
+                            <li class="${current == 'trucks' ? 'active' : ''}"><a href="<spring:url value="/Manager/trucks.html" />">Грузовики</a></li>
+                            <li class="${current == 'drivers' ? 'active' : ''}"><a href="<spring:url value="/Manager/drivers.html" />">Водители</a></li>
+                            <li class="${current == 'orders' ? 'active' : ''}"><a href="<spring:url value="/Manager/orders.html" />">Заказы</a></li>
                         </security:authorize>
                         <security:authorize access="! isAuthenticated()">
                             <li class="${current == 'login' ? 'active' : ''}"><a href="<spring:url value="/login.html" />">Login</a></li>
@@ -73,7 +73,6 @@
         <br/>
         <br/>
         <br/>
-            <tiles:insertAttribute name="header"/>
             <tiles:insertAttribute name="content"/>
         <aside class="left-sidebar">
         </aside>

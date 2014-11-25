@@ -24,6 +24,6 @@ public class LicenseValidaror implements ConstraintValidator<UniqueLicense, Stri
         if (driverRepository == null) {
             return true;
         }
-        return driverRepository.findByLicNumber(s) == null;
+        return driverRepository.findByLicenseNumber(s) == null;
     }
 }

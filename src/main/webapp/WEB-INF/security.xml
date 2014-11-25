@@ -9,7 +9,7 @@
 
     <http use-expressions="true">
         <intercept-url pattern="/Manager/**" access = "hasRole('ROLE_MANAGER')"/>
-        <form-login login-page="/login"/>
+        <form-login login-page="/login.html"/>
         <logout logout-url="/logout"/>
     </http>
 

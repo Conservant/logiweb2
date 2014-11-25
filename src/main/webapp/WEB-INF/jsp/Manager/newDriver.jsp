@@ -9,25 +9,24 @@
     </c:if>
     
     <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">Имя-Фамилия:</label>
+        <label for="name" class="col-sm-2 control-label">Имя и фамилия:</label>
         <div class="col-sm-10">
             <form:input path="name" cssClass="form-control"/>
             <form:errors path="name"/>
         </div>
     </div>
-
+    <br/>
     <div class="form-group">
-        <label for="licNumber" class="col-sm-2 control-label">Номер водителького удостоверения:</label>
+        <label for="licenseNumber" class="col-sm-2 control-label">Номер водителького удостоверения:</label>
             <div class="col-sm-10">
-                <form:input path="licNumber" cssClass="form-control"/>
-                <form:errors path="licNumber"/>
+                <form:input path="licenseNumber" cssClass="form-control"/>
+                <form:errors path="licenseNumber"/>
             </div>
     </div>
     <br/><br/>
     <div class="form-group">
         <input type="submit" value="Добавить" class="btn btn-lg btn-primary">
     </div>
-
 
 </form:form>
 
@@ -40,7 +39,7 @@
                         required: true,
                         minlength: 3
                     },
-                    licNumber: {
+                    licenseNumber: {
                         required: true,
                         minLength: 6
                     }

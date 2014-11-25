@@ -26,11 +26,4 @@
 </table>
 <br/>
 
-<a href="<spring:url value="/newOrder.html" /> "  class="btn btn-lg btn-primary">Создать заказ</a>
-
-
-
-<a href =   "./newOrder"    >Создать заказ</a><br/>
-<a href=    "./confirmOrder">Добавить грузы</a><br/>
-<a href=    "./shipOrder"   >Назначить грузовик и водителей</a><br/>
-<a href=    "./closeOrder"  >Закрыть заказ</a><br/>
+<a href="<spring:url value="/Manager/newOrder.html" /> "  class="btn btn-lg btn-primary">Создать заказ</a>

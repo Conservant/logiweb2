@@ -41,10 +41,10 @@
 </style>
 
 <form class="form-signin" role="form" action="<spring:url value="/j_spring_security_check" /> " method="POST">
-    <h2 class="form-signin-heading">Please sign in</h2>
+    <h2 class="form-signin-heading">Вход в систему</h2>
     <label for="inputEmail" class="sr-only">Login</label>
     <input type="text" name="j_username" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" name="j_password" id="inputPassword" class="form-control" placeholder="Password" required>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
 </form>

@@ -12,7 +12,7 @@ import java.util.List;
  * Operations implements by Spring Data JPA
  */
 public interface DriverRepository extends JpaRepository<Driver, Long>{
-    Driver findByLicNumber(String s);
+    Driver findByLicenseNumber(String s);
     List<Driver> findByDriverStatus(DriverStatus status);
     List<Driver> findByTruck(Truck truck);
 }

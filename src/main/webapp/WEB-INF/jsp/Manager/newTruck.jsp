@@ -34,5 +34,33 @@
     <div class="form-group">
         <input type="submit" value="Добавить" class="btn btn-lg btn-primary">
     </div>
-
 </form:form>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".registrationForm").validate(
+                {
+                    rules: {
+                        regNumber: {
+                            required: true,
+                            minlength: 3
+                        },
+                        capacity: {
+                            required: true,
+                            minLength: 6
+                        },
+                        requiredNumberOfDrivers: {
+                            required: true,
+                        }
+                    },
+                    highlight: function(element) {
+                        $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+                    },
+
+                    unhighlight: function(element) {
+                        $(element).closest('.form-group').removeClass('has-error').addClass('has-success');
+                    }
+                }
+        );
+    });
+</script>

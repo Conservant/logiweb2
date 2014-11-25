@@ -3,7 +3,7 @@
          isELIgnored="false" %>
 <%@ include file="../layout/taglib.jsp"%>
 
-
+<h3>Водители</h3>
 
 <table class="table table-bordered table-hover">
 
@@ -16,11 +16,13 @@
     <c:forEach items="${drivers}" var="driver">
         <tr>
             <td><c:out value="${driver.name}"/></td>
-            <td><c:out value="${driver.licNumber}"/></td>
+            <td><c:out value="${driver.licenseNumber}"/></td>
             <td><c:out value="${driver.driverStatus}"/></td>
         </tr>
     </c:forEach>
 </table>
 
 <br/>
-<a href="./newDriver.html">Добавить водителя</a>
+<a href="<spring:url value="/Manager/newDriver.html" /> " class="btn btn-primary btn-lg">
+    Добавить водителя
+</a>

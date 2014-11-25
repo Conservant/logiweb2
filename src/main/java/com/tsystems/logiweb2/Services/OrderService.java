@@ -8,11 +8,14 @@ import com.tsystems.logiweb2.model.Driver;
 import com.tsystems.logiweb2.model.Order;
 import com.tsystems.logiweb2.model.OrderItem;
 import com.tsystems.logiweb2.model.Truck;
+import com.tsystems.logiweb2.model.enums.DriverStatus;
 import com.tsystems.logiweb2.model.enums.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -56,6 +59,59 @@ public class OrderService {
         orderRepository.save(order);
     }
 
+    @Transactional
+    public boolean confirmOrder(Long id) {
+        Order order = orderRepository.getOne(id);
+        if (order.getItems().isEmpty()) {
+            return false;
+        }
+        order.setOrderStatus(OrderStatus.CONFIRMED);
+        return true;
+    }
+
+    public String attachTruck(Long id, String regNumber) {
+
+        Truck truck = truckRepository.findByRegNumber(regNumber);
+        if (truck == null) {
+            return "" + id + "/attachTruck.html?isFound=false";
+        }
+
+        if (truck.getOrder() != null) {
+            return "" + id + "/attachTruck.html?isBusy=true";
+        }
+
+        Order order = orderRepository.findOne(id);
+        order.setTruck(truck);
+        orderRepository.save(order);
+        return "" + id + ".html?isTruckAttached=true";
+    }
+
+    public String attachDriver(Long id, String licenseNumber) {
+        Driver driver = driverRepository.findByLicenseNumber(licenseNumber);
+        if (driver == null) {
+            //Водитель не найден
+            return "" + id + "/attachDriver.html?isFound=false";
+        }
+
+        if (driver.getTruck() != null) {
+            //Водитель уже на смене
+            return "" + id + "/attachDriver.html?isBusy=true";
+        }
+
+        Order order = orderRepository.findOne(id);
+        Truck truck = order.getTruck();
+        driver.setTruck(truck);
+        driver.setDriverStatus(DriverStatus.ON_ROUTE);
+        driverRepository.save(driver);
+
+        if (truck.getRequiredNumberOfDrivers() == truck.getDrivers().size() + 1) {
+            order.setOrderStatus(OrderStatus.SHIPPED);
+            orderRepository.save(order);
+        }
+
+        return "" + id + ".html?isDriverAttached=true";
+    }
+
     public void closeOrder(Long id) {
         Order order = findById(id);
         if (order.getOrderStatus() == OrderStatus.PERFORMED) {
@@ -64,38 +120,25 @@ public class OrderService {
             List<Driver> drivers = driverRepository.findByTruck(truck);
             for(Driver dr: drivers) {
                 dr.setTruck(null);
+                dr.setDriverStatus(DriverStatus.FREE);
                 driverRepository.save(dr);
             }
+            truck.setDrivers(new ArrayList<Driver>());
+            truckRepository.save(truck);
+
             order.setTruck(null);
             orderRepository.save(order);
         }
     }
 
-    public void confirmOrder(Long id) {
-        Order order = orderRepository.getOne(id);
-        if (order.getItems().isEmpty()) {
-
-        }
-
-        order.setOrderStatus(OrderStatus.CONFIRMED);
-    }
-
-    public void attachTruck(Long id, String regNumber) {
-
-        Truck truck = truckRepository.findByRegNumber(regNumber);
-
-        if (truck.getOrder() != null) {
-            System.out.println("фура занята");
-            return;
-        }
-
+    public List<Driver> findDriversByOrder(Long id) {
+        List<Driver> resultList = new ArrayList<>();
         Order order = orderRepository.findOne(id);
-        order.setTruck(truck);
-        orderRepository.save(order);
-    }
-
-    public void attachDrivers(Long id) {
-        id = 3l;
-        System.out.println(id);
+        Truck truck = order.getTruck();
+        if (truck == null) {
+            return resultList;
+        }
+        resultList = truck.getDrivers();
+        return resultList;
     }
 }

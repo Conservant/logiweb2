@@ -16,6 +16,7 @@ import javax.validation.Valid;
  * Created by StarKiller on 15.11.2014.
  */
 @Controller
+@RequestMapping("/Manager")
 public class TruckController {
 
     @Autowired
@@ -38,7 +39,7 @@ public class TruckController {
     }
 
     @RequestMapping(value = "/newTruck", method = RequestMethod.POST)
-    public String addDriver(ModelMap model, @Valid @ModelAttribute("truck") Truck truck, BindingResult result) {
+    public String addTruck(ModelMap model, @Valid @ModelAttribute("truck") Truck truck, BindingResult result) {
         if (result.hasErrors()) {
             newDriver(model);
         }
