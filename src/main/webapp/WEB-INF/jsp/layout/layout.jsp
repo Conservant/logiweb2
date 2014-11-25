@@ -59,6 +59,11 @@
                             <li class="${current == 'drivers' ? 'active' : ''}"><a href="<spring:url value="/Manager/drivers.html" />">Водители</a></li>
                             <li class="${current == 'orders' ? 'active' : ''}"><a href="<spring:url value="/Manager/orders.html" />">Заказы</a></li>
                         </security:authorize>
+                        <security:authorize access="hasRole('ROLE_DRIVER)">
+                            <li class="${current == 'myOrder' ? 'active' : ''}"><a href="<spring:url value="/Driver/order.html" />">Заказ</a></li>
+                            <li class="${current == 'myTruck' ? 'active' : ''}"><a href="<spring:url value="/Driver/truck.html" />">Грузовик</a></li>
+                            <li class="${current == 'myComrades' ? 'active' : ''}"><a href="<spring:url value="/Driver/drivers.html" />">Водители</a></li>
+                        </security:authorize>
                         <security:authorize access="! isAuthenticated()">
                             <li class="${current == 'login' ? 'active' : ''}"><a href="<spring:url value="/login.html" />">Login</a></li>
                         </security:authorize>

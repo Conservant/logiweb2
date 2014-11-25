@@ -9,6 +9,7 @@
 
     <http use-expressions="true">
         <intercept-url pattern="/Manager/**" access = "hasRole('ROLE_MANAGER')"/>
+        <intercept-url pattern="/Driver/**" access="hasRole('ROLE_DRIVER')"/>
         <form-login login-page="/login.html"/>
         <logout logout-url="/logout"/>
     </http>

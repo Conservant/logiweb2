@@ -1,5 +1,7 @@
 package com.tsystems.logiweb2.model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
 
 /**
