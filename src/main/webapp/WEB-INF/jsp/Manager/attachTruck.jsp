@@ -10,6 +10,9 @@
         <c:when test="${param.isBusy eq true}">
             <div class = "alert alert-danger">Указанный грузовик уже на заказе</div>
         </c:when>
+        <c:when test="${param.notEnoughtCapacity eq true}">
+            <div class = "alert alert-danger">Недостаточная грузоподъемность</div>
+        </c:when>
     </c:choose>
 
     <div class="form-group">

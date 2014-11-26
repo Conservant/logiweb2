@@ -49,5 +49,4 @@ public class TruckService {
         logger.info("Service method 'getAll' for trucks called");
         return truckRepository.findAll();
     }
-
 }

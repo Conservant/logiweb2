@@ -47,4 +47,38 @@ public class DriverController {
         driverService.save(driver);
         return "redirect:/Manager/newDriver.html?success=true";
     }
+
+    @RequestMapping("/Driver/myOrder")
+    public String orderDetail(ModelMap model, Principal principal) {
+        String licenseNumber = principal.getName();
+        Order order = driverService.findOrder(licenseNumber);
+        model.addAttribute("myOrder", order);
+        return "myOrder";
+    }
+
+    @RequestMapping("/Driver/myTruck")
+    public String truckDetail(ModelMap model, Principal principal) {
+        String licenseNumber = principal.getName();
+        model.addAttribute("myTruck", driverService.findTruck(licenseNumber));
+        return "myTruck";
+    }
+
+    @RequestMapping("/Driver/myDrivers")
+    public String driverDetail(ModelMap model, Principal principal) {
+        String licenseNumber = principal.getName();
+        model.addAttribute("myDrivers", driverService.getDriversFromOrder(licenseNumber));
+        return "myDrivers";
+    }
+
+    @RequestMapping("/Driver/drive")
+    public String drive(ModelMap model, Principal principal) {
+        String licenseNumber = principal.getName();
+        return "redirect:/Driver/myDrivers.html"+driverService.changeStatus(licenseNumber, DriverStatus.DRIVING);
+    }
+
+    @RequestMapping("/Driver/route")
+    public String route(ModelMap model, Principal principal) {
+        String licenseNumber = principal.getName();
+        return "redirect:/Driver/myDrivers.html"+driverService.changeStatus(licenseNumber, DriverStatus.ON_ROUTE);
+    }
 }

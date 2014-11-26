@@ -49,13 +49,13 @@ public class OrderController {
     @RequestMapping(value = "/orders/{id}", method = RequestMethod.POST)
     public String addOrderItem(@ModelAttribute("item") OrderItem item, @PathVariable Long id) {
         orderItemService.save(item, id);
-        return "redirect:/orders/"+id+".html";
+        return "redirect:/Manager/orders/"+id+".html";
     }
 
     @RequestMapping("/newOrder")
     public String addDriver() {
         orderService.save();
-        return "redirect:/orders.html";
+        return "redirect:/Manager/orders.html";
     }
 
     @RequestMapping("/orders/{id}/confirm")
@@ -64,7 +64,7 @@ public class OrderController {
         if (orderService.confirmOrder(id)) {
             status = "?isConfirmed=true";
         }
-        return "redirect:/orders/"+id+".html"+status;
+        return "redirect:/Manager/orders/"+id+".html"+status;
     }
 
     @ModelAttribute("attachedTruck")
@@ -81,7 +81,7 @@ public class OrderController {
     @RequestMapping(value = "/orders/{id}/attachTruck", method = RequestMethod.POST)
     public String attachTruck(@ModelAttribute Truck attachedTruck, @PathVariable Long id) {
         String status = orderService.attachTruck(id, attachedTruck.getRegNumber());
-        return "redirect:/orders/" + status;
+        return "redirect:/Manager/orders/" + status;
     }
 
     @ModelAttribute("attachedDriver")
@@ -97,13 +97,13 @@ public class OrderController {
     @RequestMapping(value = "/orders/{id}/attachDriver", method = RequestMethod.POST)
     public String attachDriver(@ModelAttribute Driver attachedDriver, @PathVariable Long id) {
         String status = orderService.attachDriver(id, attachedDriver.getLicenseNumber());
-        return "redirect:/orders/" + status;
+        return "redirect:/Manager/orders/" + status;
     }
 
 
     @RequestMapping("orders/{id}/close")
     public String close(@PathVariable Long id) {
         orderService.closeOrder(id);
-        return "redirect:/orders.html";
+        return "redirect:/Manager/orders.html";
     }
 }

@@ -1,6 +1,6 @@
 package com.tsystems.logiweb2.model;
 
-import org.hibernate.validator.constraints.NotBlank;
+import com.tsystems.logiweb2.model.enums.Delivery;
 
 import javax.persistence.*;
 
@@ -25,6 +25,10 @@ public class OrderItem {
 
     @Column(name = "WEIGHT")
     private Double weight;
+
+    @Column(name = "DELIVERY")
+    @Enumerated(EnumType.STRING)
+    private Delivery delivery;
 
     @ManyToOne
     @JoinColumn(name = "ORDER_ID")
@@ -76,5 +80,13 @@ public class OrderItem {
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
     }
 }

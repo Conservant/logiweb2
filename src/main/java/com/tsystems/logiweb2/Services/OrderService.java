@@ -81,6 +81,17 @@ public class OrderService {
         }
 
         Order order = orderRepository.findOne(id);
+
+        double totalWeight = 0;
+        List<OrderItem> items = order.getItems();
+        for (OrderItem item: items) {
+            totalWeight += item.getWeight();
+        }
+
+        if (truck.getCapacity() < totalWeight) {
+            return "" + id + "/attachTruck.html?notEnoughtCapacity=true";
+        }
+
         order.setTruck(truck);
         orderRepository.save(order);
         return "" + id + ".html?isTruckAttached=true";

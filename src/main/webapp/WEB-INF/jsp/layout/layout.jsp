@@ -26,7 +26,7 @@
     <script type="application/javascript"
             src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js">
 
-            </script>
+    </script>
     <title>
         <tiles:getAsString name="title"/>
     </title>
@@ -34,59 +34,60 @@
 
 <body>
 
-    <tilesx:useAttribute name="current"/>
+<tilesx:useAttribute name="current"/>
 
-    <div class="container">
+<div class="container">
 
-        <!-- Static navbar -->
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="<spring:url value="/" />">Грузоперевозки 2.0</a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="<spring:url value="/" />">Грузоперевозки 2.0</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
 
-                        <li class="${current == 'index' ? 'active' : ''}"><a href="<spring:url value="/" />">Home</a></li>
-                        <security:authorize access="hasRole('ROLE_MANAGER')">
-                            <li class="${current == 'trucks' ? 'active' : ''}"><a href="<spring:url value="/Manager/trucks.html" />">Грузовики</a></li>
-                            <li class="${current == 'drivers' ? 'active' : ''}"><a href="<spring:url value="/Manager/drivers.html" />">Водители</a></li>
-                            <li class="${current == 'orders' ? 'active' : ''}"><a href="<spring:url value="/Manager/orders.html" />">Заказы</a></li>
-                        </security:authorize>
-                        <security:authorize access="hasRole('ROLE_DRIVER)">
-                            <li class="${current == 'myOrder' ? 'active' : ''}"><a href="<spring:url value="/Driver/order.html" />">Заказ</a></li>
-                            <li class="${current == 'myTruck' ? 'active' : ''}"><a href="<spring:url value="/Driver/truck.html" />">Грузовик</a></li>
-                            <li class="${current == 'myComrades' ? 'active' : ''}"><a href="<spring:url value="/Driver/drivers.html" />">Водители</a></li>
-                        </security:authorize>
-                        <security:authorize access="! isAuthenticated()">
-                            <li class="${current == 'login' ? 'active' : ''}"><a href="<spring:url value="/login.html" />">Login</a></li>
-                        </security:authorize>
-                        <security:authorize access="isAuthenticated()">
-                            <li><a href="<spring:url value="/logout" />">Logout</a></li>
-                        </security:authorize>
-                    </ul>
+                    <li class="${current == 'index' ? 'active' : ''}"><a href="<spring:url value="/" />">Home</a></li>
+                    <security:authorize access="hasRole('ROLE_MANAGER')">
+                        <li class="${current == 'trucks' ? 'active' : ''}"><a href="<spring:url value="/Manager/trucks.html" />">Грузовики</a></li>
+                        <li class="${current == 'drivers' ? 'active' : ''}"><a href="<spring:url value="/Manager/drivers.html" />">Водители</a></li>
+                        <li class="${current == 'orders' ? 'active' : ''}"><a href="<spring:url value="/Manager/orders.html" />">Заказы</a></li>
+                    </security:authorize>
+                    <security:authorize access="! isAuthenticated()">
+                        <li class="${current == 'login' ? 'active' : ''}"><a href="<spring:url value="/login.html" />">Login</a></li>
+                    </security:authorize>
+                    <security:authorize access="hasRole('ROLE_DRIVER')">
+                        <li class="${current == 'myOrder' ? 'active' : ''}"><a href="<spring:url value="/Driver/myOrder.html" /> ">Мой заказ</a></li>
+                        <li class="${current == 'myTruck' ? 'active' : ''}"><a href="<spring:url value="/Driver/myTruck.html" /> ">Мой грузовик</a></li>
+                        <li class="${current == 'myDrivers' ? 'active' : ''}"><a href="<spring:url value="/Driver/myDrivers.html" /> ">Мои водители</a></li>
+                    </security:authorize>
 
-                </div><!--/.nav-collapse -->
-            </div><!--/.container-fluid -->
-        </nav>
-        <br/>
-        <br/>
-        <br/>
-            <tiles:insertAttribute name="content"/>
-        <aside class="left-sidebar">
-        </aside>
+                    <security:authorize access="isAuthenticated()">
+                        <li><a href="<spring:url value="/logout" />">Logout</a></li>
+                    </security:authorize>
+                </ul>
 
-        <center>
-            <tiles:insertAttribute name="footer"/>
-        </center>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </nav>
+    <br/>
+    <br/>
+    <br/>
+    <tiles:insertAttribute name="content"/>
+    <aside class="left-sidebar">
+    </aside>
 
-    </div>
+    <center>
+        <tiles:insertAttribute name="footer"/>
+    </center>
+
+</div>
 
 </body>
 </html>

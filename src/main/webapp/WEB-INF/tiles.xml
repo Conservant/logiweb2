@@ -67,22 +67,22 @@
         <put-attribute name="current" value=""/>
     </definition>
 
+    <definition name="myOrder" extends="baseLayout">
+        <put-attribute name="title" value="Информация о заказе"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/Driver/myOrder.jsp"/>
+        <put-attribute name="current" value="myOrder"/>
+    </definition>
+
     <definition name="myTruck" extends="baseLayout">
-        <put-attribute name="title" value="Мой грузовик"/>
-        <put-attribute name="content" value=""/>
+        <put-attribute name="title" value="Информация о грузовике"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/Driver/myTruck.jsp"/>
         <put-attribute name="current" value="myTruck"/>
     </definition>
 
     <definition name="myDrivers" extends="baseLayout">
-        <put-attribute name="title" value="Мои товарищи"/>
-        <put-attribute name="content" value=""/>
-        <put-attribute name="current" value="myComrades"/>
-    </definition>
-
-    <definition name="myOrder" extends="baseLayout">
-        <put-attribute name="title" value="Мой заказ"/>
-        <put-attribute name="content" value=""/>
-        <put-attribute name="current" value="myOrder"/>
+        <put-attribute name="title" value="Информация о водителях"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/Driver/myDrivers.jsp"/>
+        <put-attribute name="current" value="myDrivers"/>
     </definition>
 
 </tiles-definitions>

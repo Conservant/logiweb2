@@ -1,8 +1,10 @@
 package com.tsystems.logiweb2.Services;
 
 import com.tsystems.logiweb2.Repository.DriverRepository;
-
+import com.tsystems.logiweb2.Repository.OrderRepository;
 import com.tsystems.logiweb2.model.Driver;
+import com.tsystems.logiweb2.model.Order;
+import com.tsystems.logiweb2.model.Truck;
 import com.tsystems.logiweb2.model.enums.DriverStatus;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,14 @@ import java.util.List;
 @Transactional
 public class DriverService {
 
-    Logger logger = Logger.getLogger(DriverService.class);
+    private static Logger logger = Logger.getLogger(DriverService.class);
 
 
     @Autowired
     private DriverRepository driverRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     /**
      * Method adds new driver to database.
@@ -46,7 +51,50 @@ public class DriverService {
         return driverRepository.findAll();
     }
 
-    public List<Driver> getFreeDrivers() {
-        return driverRepository.findByDriverStatus(DriverStatus.FREE);
+    public Driver findDriver(String licenseNumber) {
+        return driverRepository.findByLicenseNumber(licenseNumber);
+    }
+
+    public Truck findTruck(String licenseNumber) {
+        Driver driver = driverRepository.findByLicenseNumber(licenseNumber);
+        return driver.getTruck();
+    }
+
+    public Order findOrder(String licenseNumber) {
+        Driver driver = driverRepository.findByLicenseNumber(licenseNumber);
+        Truck truck = driver.getTruck();
+
+        if (truck == null) {
+            return null;
+        }
+
+        return orderRepository.findByTruck(truck);
+    }
+
+    public List<Driver> getDriversFromOrder(String licenseNumber) {
+        Truck truck = findTruck(licenseNumber);
+        return driverRepository.findByTruck(truck);
+    }
+
+    public String changeStatus(String licenseNumber, DriverStatus status) {
+        Driver driver = findDriver(licenseNumber);
+        if (driver.getDriverStatus() == DriverStatus.FREE) {
+            return "";
+        }
+        if (status == DriverStatus.ON_ROUTE) {
+            driver.setDriverStatus(status);
+            driverRepository.save(driver);
+            return "";
+        }
+
+        List<Driver> sameDrivers = getDriversFromOrder(licenseNumber);
+        for (Driver dr : sameDrivers) {
+            if (dr.getDriverStatus() == DriverStatus.DRIVING) {
+                return "?anotherDriverIsDriving=true";
+            }
+        }
+        driver.setDriverStatus(status);
+        driverRepository.save(driver);
+        return "";
     }
 }

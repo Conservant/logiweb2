@@ -1,10 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8"
          language="java"
          isELIgnored="false" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<%@ include file="../layout/taglib.jsp"%>
 
 <h4 align="center">Заказ № ${order.id}</h4>
 
@@ -29,9 +27,9 @@
 </c:if>
 
 <h3>СТАТУС</h3>
-    ${order.orderStatus}
+${order.orderStatus}
 <h3>ГРУЗОВИК</h3>
-    <c:out value="${order.truck == null ? '' : order.truck.regNumber}"/><br/>
+<c:out value="${order.truck == null ? '' : order.truck.regNumber}"/><br/>
 
 <h3>Состав смены</h3>
 <table>
@@ -45,11 +43,12 @@
 
 <h3>Позиции в заказе</h3>
 <table class = "table bordered-table hover-table">
-<tr>
-    <th>Наименование</th>
-    <th>Вес</th>
-    <th>Координаты доставки</th>
-</tr>
+    <tr>
+        <th>Наименование</th>
+        <th>Вес</th>
+        <th>Координаты доставки</th>
+        <th>Статус доставки</th>
+    </tr>
     <c:forEach items="${order.items}" var="item">
         <tr>
             <td>
@@ -61,6 +60,9 @@
             <td>
                 <c:out value="${item.latitude}"/>;
                 <c:out value="${item.longitude}"/>
+            </td>
+            <td>
+                <c:out value="${item.delivery}"/>
             </td>
         </tr>
     </c:forEach>
@@ -148,5 +150,3 @@
         </div>
     </div>
 </form:form>
-<%--Форма добавления водителей--%>
-
