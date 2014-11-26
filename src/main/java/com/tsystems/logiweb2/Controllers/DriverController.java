@@ -2,6 +2,8 @@ package com.tsystems.logiweb2.Controllers;
 
 import com.tsystems.logiweb2.Services.DriverService;
 import com.tsystems.logiweb2.model.Driver;
+import com.tsystems.logiweb2.model.Order;
+import com.tsystems.logiweb2.model.enums.DriverStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,13 +19,13 @@ import java.security.Principal;
  * Created by StarKiller on 17.11.2014.
  */
 @Controller
-@RequestMapping("/Manager")
+@RequestMapping
 public class DriverController {
 
     @Autowired
     private DriverService driverService;
 
-    @RequestMapping("/drivers")
+    @RequestMapping("/Manager/drivers")
     public String listDrivers(ModelMap model) {
         model.addAttribute("drivers", driverService.getAll());
         return "drivers";
@@ -34,12 +36,12 @@ public class DriverController {
         return new Driver();
     }
 
-    @RequestMapping("/newDriver")
+    @RequestMapping("/Manager/newDriver")
     public String newDriver(ModelMap model) {
         return "newDriver";
     }
 
-    @RequestMapping(value = "/newDriver", method = RequestMethod.POST)
+    @RequestMapping(value = "/Manager/newDriver", method = RequestMethod.POST)
     public String addDriver(ModelMap model, @Valid @ModelAttribute("driver") Driver driver, BindingResult result) {
         if (result.hasErrors()) {
             return newDriver(model);

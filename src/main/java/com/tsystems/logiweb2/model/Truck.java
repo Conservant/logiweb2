@@ -18,19 +18,19 @@ public class Truck {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotBlank(message = "Не может быть пустым")
+//    @NotBlank(message = "Не может быть пустым")
     @UniqueNumber(message = "Грузовик с таким номером уже существует!")
     @Pattern(regexp = "[A-Z]{1}[0-9]{3}[A-Z]{2}",
              message = "Неверно указан номер")
     @Column(name = "REG_NUMBER", unique = true)
     private String regNumber;
 
-    @NotBlank(message = "Не может быть пустым")
+//    @NotBlank(message = "Не может быть пустым")
     @Min(value = 1, message = "Число водителей не может быть меньше 1")
     @Column(name = "REQ_NUM_OF_DRIVERS")
     private Integer requiredNumberOfDrivers;
 
-    @NotBlank(message = "Не может быть пустым")
+//    @NotBlank(message = "Не может быть пустым")
     @DecimalMin(value = "0.5", message = "Слишком маленькая грузоподъемность")
     @DecimalMax(value = "15", message = "Слишком большая грузоподъемность")
     @Column(name = "CAPACITY")

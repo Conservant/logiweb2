@@ -1,5 +1,6 @@
 package com.tsystems.logiweb2.model;
 
+import com.tsystems.logiweb2.Annotation.UniqueLicense;
 import com.tsystems.logiweb2.Annotation.UniqueNumber;
 import com.tsystems.logiweb2.model.enums.DriverStatus;
 import org.hibernate.validator.constraints.NotBlank;
@@ -18,7 +19,7 @@ public class Driver {
     private Long id;
 
     @Size(min = 4, message = "В водительских правах 6 символов!")
-    @UniqueNumber(message = "Водитель с таким номером прав уже существует!")
+    @UniqueLicense(message = "Водитель с таким номером прав уже существует!")
     @Column(name = "LICENSE_NUMBER", unique = true)
     private String licenseNumber;
 

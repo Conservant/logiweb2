@@ -2,10 +2,13 @@ package com.tsystems.logiweb2.Services;
 
 import com.tsystems.logiweb2.Repository.DriverRepository;
 import com.tsystems.logiweb2.Repository.OrderRepository;
+import com.tsystems.logiweb2.Repository.UserRepository;
 import com.tsystems.logiweb2.model.Driver;
 import com.tsystems.logiweb2.model.Order;
 import com.tsystems.logiweb2.model.Truck;
+import com.tsystems.logiweb2.model.User;
 import com.tsystems.logiweb2.model.enums.DriverStatus;
+import com.tsystems.logiweb2.model.enums.Role;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +33,9 @@ public class DriverService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     /**
      * Method adds new driver to database.
      *
@@ -39,6 +45,12 @@ public class DriverService {
         logger.info("Service method 'save' for driver called with argument " + driver);
         driver.setDriverStatus(DriverStatus.FREE);
         driverRepository.save(driver);
+
+        User user = new User();
+        user.setLogin(driver.getLicenseNumber());
+        user.setPassword(driver.getLicenseNumber());
+        user.setRole(Role.ROLE_DRIVER);
+        userRepository.save(user);
     }
 
     /**
