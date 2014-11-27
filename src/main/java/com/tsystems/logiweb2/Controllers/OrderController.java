@@ -24,13 +24,16 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @Autowired
-    private OrderItemService orderItemService;
-
     @RequestMapping("/orders")
     public String listOrders(ModelMap model) {
         model.addAttribute("orders", orderService.getAll());
         return "orders";
+    }
+
+    @RequestMapping("/newOrder")
+    public String newOrder() {
+        orderService.save();
+        return "redirect:/Manager/orders.html";
     }
 
     @RequestMapping("/orders/{id}")
@@ -42,21 +45,22 @@ public class OrderController {
 
     @ModelAttribute("item")
     public OrderItem createItem() {
-        OrderItem item = new OrderItem();
-        return item;
+        return new OrderItem();
     }
 
-    @RequestMapping(value = "/orders/{id}", method = RequestMethod.POST)
-    public String addOrderItem(@ModelAttribute("item") OrderItem item, @PathVariable Long id) {
-        orderItemService.save(item, id);
-        return "redirect:/Manager/orders/"+id+".html";
+    @RequestMapping("/orders/{id}/attachItem")
+    public String attachItem() {
+        return "attachItem";
     }
 
-    @RequestMapping("/newOrder")
-    public String addDriver() {
-        orderService.save();
-        return "redirect:/Manager/orders.html";
+    @RequestMapping(value = "/orders/{id}/attachItem", method = RequestMethod.POST)
+    public String attachItem(@ModelAttribute OrderItem item, @PathVariable Long id) {
+        String status = orderService.attachItem(id, item);
+        return "redirect:/Manager/orders/" + status;
     }
+
+
+
 
     @RequestMapping("/orders/{id}/confirm")
     public String confirmOrder(@PathVariable Long id) {

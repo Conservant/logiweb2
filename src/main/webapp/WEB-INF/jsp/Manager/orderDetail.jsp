@@ -26,12 +26,16 @@
     <div class = "alert alert-success">Смена сформирована</div>
 </c:if>
 
-<h3>СТАТУС</h3>
-${order.orderStatus}
-<h3>ГРУЗОВИК</h3>
-<c:out value="${order.truck == null ? '' : order.truck.regNumber}"/><br/>
+<c:if test="${param.isItemAttached eq true}">
+    <div class = "alert alert-success">Груз добавлен</div>
+</c:if>
 
-<h3>Состав смены</h3>
+СТАТУС
+<h3>${order.orderStatus}</h3>
+ГРУЗОВИК
+<h3><c:out value="${order.truck == null ? '' : order.truck.regNumber}"/></h3>
+
+Состав смены
 <table>
     <c:forEach items="${driversFromOrders}" var="dr">
         <tr>
@@ -68,12 +72,10 @@ ${order.orderStatus}
     </c:forEach>
 </table>
 
-<!-- Modal -->
-<!-- Button trigger modal -->
 <c:if test="${order.orderStatus == 'CREATED'}">
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    <a href="<spring:url value="/Manager/orders/${order.id}/attachItem.html" /> " class="btn btn-primary btn-lg">
         Добавить груз
-    </button>
+    </a>
     <br/>
     <br/>
 </c:if>
@@ -101,52 +103,3 @@ ${order.orderStatus}
         Закрыть заказ
     </a>
 </c:if>
-
-<%--Форма добавления груза--%>
-<form:form commandName="item" cssClass="form-horizontal">
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h4 class="modal-title">Добавление груза в заказ</h4>
-                </div>
-                <div class="modal-body">
-
-                    <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label">Название:</label>
-                        <div class="col-sm-10">
-                            <form:input path="name" cssClass="form-control"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="longitude" class="col-sm-2 control-label">Долгота:</label>
-                        <div class="col-sm-10">
-                            <form:input path="longitude" cssClass="form-control"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="latitude" class="col-sm-2 control-label">Широта:</label>
-                        <div class="col-sm-10">
-                            <form:input path="latitude" cssClass="form-control"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="weight" class="col-sm-2 control-label">Вес:</label>
-                        <div class="col-sm-10">
-                            <form:input path="weight" cssClass="form-control"/>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                    <input type="submit" class="btn btn-primary" value="Добавить"/>
-                </div>
-            </div>
-        </div>
-    </div>
-</form:form>

@@ -3,17 +3,20 @@ package com.tsystems.logiweb2.Controllers;
 import com.tsystems.logiweb2.Services.DriverService;
 import com.tsystems.logiweb2.model.Driver;
 import com.tsystems.logiweb2.model.Order;
+import com.tsystems.logiweb2.model.OrderItem;
 import com.tsystems.logiweb2.model.enums.DriverStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.List;
 
 /**
  * Created by StarKiller on 17.11.2014.
@@ -42,7 +45,7 @@ public class DriverController {
     }
 
     @RequestMapping(value = "/Manager/newDriver", method = RequestMethod.POST)
-    public String addDriver(ModelMap model, @Valid @ModelAttribute("driver") Driver driver, BindingResult result) {
+    public String newDriver(ModelMap model, @Valid @ModelAttribute("driver") Driver driver, BindingResult result) {
         if (result.hasErrors()) {
             return newDriver(model);
         }
@@ -55,6 +58,8 @@ public class DriverController {
         String licenseNumber = principal.getName();
         Order order = driverService.findOrder(licenseNumber);
         model.addAttribute("myOrder", order);
+//        List<OrderItem> items =
+//        model.addAttribute("itemsFromOrder", items);
         return "myOrder";
     }
 
@@ -82,5 +87,11 @@ public class DriverController {
     public String route(ModelMap model, Principal principal) {
         String licenseNumber = principal.getName();
         return "redirect:/Driver/myDrivers.html"+driverService.changeStatus(licenseNumber, DriverStatus.ON_ROUTE);
+    }
+
+    @RequestMapping("/Driver/{id}/deliver")
+    public String deliver(ModelMap model, @PathVariable Long id) {
+        driverService.deliver(id);
+        return "redirect:/Driver/myOrder.html";
     }
 }

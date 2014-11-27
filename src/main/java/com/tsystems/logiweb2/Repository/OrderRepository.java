@@ -1,6 +1,7 @@
 package com.tsystems.logiweb2.Repository;
 
 import com.tsystems.logiweb2.model.Order;
+import com.tsystems.logiweb2.model.OrderItem;
 import com.tsystems.logiweb2.model.Truck;
 import com.tsystems.logiweb2.model.enums.OrderStatus;
 import org.springframework.data.jpa.repository.JpaRepository;

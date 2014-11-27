@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="../layout/taglib.jsp"%>
 
-<H2>Заказ</H2>
+
 
 <c:if test="${myOrder eq null}">
     <div>В данный момент у вас нет ни одного зазаза</div>
@@ -9,9 +9,9 @@
 
 
 <c:if test="${myOrder != null}">
-    Заказ № <c:out value="${myOrder.id}"/>
+    <H2>Заказ № <c:out value="${myOrder.id}"/></H2>
 
-    Позиции в заказе
+
 
     <h3>Позиции в заказе</h3>
     <table class = "table bordered-table hover-table">
@@ -21,7 +21,7 @@
             <th>Координаты доставки</th>
             <th>Статус доставки</th>
         </tr>
-        <c:forEach items="${MyOrder.items}" var="item">
+        <c:forEach items="${myOrder.items}" var="item">
             <tr>
                 <td>
                     <c:out value="${item.name}"/>

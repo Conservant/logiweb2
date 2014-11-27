@@ -8,6 +8,7 @@ import com.tsystems.logiweb2.model.Driver;
 import com.tsystems.logiweb2.model.Order;
 import com.tsystems.logiweb2.model.OrderItem;
 import com.tsystems.logiweb2.model.Truck;
+import com.tsystems.logiweb2.model.enums.Delivery;
 import com.tsystems.logiweb2.model.enums.DriverStatus;
 import com.tsystems.logiweb2.model.enums.OrderStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,6 +119,7 @@ public class OrderService {
         if (truck.getRequiredNumberOfDrivers() == truck.getDrivers().size() + 1) {
             order.setOrderStatus(OrderStatus.SHIPPED);
             orderRepository.save(order);
+            return "" + id + ".html?isComplete=true";
         }
 
         return "" + id + ".html?isDriverAttached=true";
@@ -151,5 +153,14 @@ public class OrderService {
         }
         resultList = truck.getDrivers();
         return resultList;
+    }
+
+    public String attachItem(Long id, OrderItem orderItem) {
+        Order order = orderRepository.getOne(id);
+        orderItem.setDelivery(Delivery.NOT_DELIVERED);
+        orderItem.setOrder(order);
+        orderItem.setId(null);
+        orderItemRepository.save(orderItem);
+        return "" + id + ".html?isItemAttached=true";
     }
 }

@@ -4,13 +4,13 @@
 <H2>Водители</H2>
 
 <c:if test="${param.anotherDriverIsDriving eq true}">
-    <div class = "alert alert-danger">Грузовик не найден</div>
+    <div class = "alert alert-danger">Другой водитель за рулем!</div>
 </c:if>
 
 <table class="table table-bordered table-hover">
 
     <tr>
-        <th>Имя/th>
+        <th>Имя</th>
         <th>Номер прав</th>
         <th>Статус</th>
     </tr>

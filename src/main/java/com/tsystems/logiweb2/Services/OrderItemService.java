@@ -26,4 +26,8 @@ public class OrderItemService {
         item.setDelivery(Delivery.NOT_DELIVERED);
         orderItemRepository.save(item);
     }
+
+    public void save(OrderItem item) {
+        orderItemRepository.save(item);
+    }
 }

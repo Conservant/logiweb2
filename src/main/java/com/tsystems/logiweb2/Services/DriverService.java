@@ -1,13 +1,13 @@
 package com.tsystems.logiweb2.Services;
 
 import com.tsystems.logiweb2.Repository.DriverRepository;
+import com.tsystems.logiweb2.Repository.OrderItemRepository;
 import com.tsystems.logiweb2.Repository.OrderRepository;
 import com.tsystems.logiweb2.Repository.UserRepository;
-import com.tsystems.logiweb2.model.Driver;
-import com.tsystems.logiweb2.model.Order;
-import com.tsystems.logiweb2.model.Truck;
-import com.tsystems.logiweb2.model.User;
+import com.tsystems.logiweb2.model.*;
+import com.tsystems.logiweb2.model.enums.Delivery;
 import com.tsystems.logiweb2.model.enums.DriverStatus;
+import com.tsystems.logiweb2.model.enums.OrderStatus;
 import com.tsystems.logiweb2.model.enums.Role;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +35,9 @@ public class DriverService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     /**
      * Method adds new driver to database.
@@ -108,5 +111,22 @@ public class DriverService {
         driver.setDriverStatus(status);
         driverRepository.save(driver);
         return "";
+    }
+
+    public void deliver(Long id) {
+        OrderItem item = orderItemRepository.findOne(id);
+        item.setDelivery(Delivery.DELIVERED);
+        orderItemRepository.save(item);
+        Order order = item.getOrder();
+
+        List<OrderItem> items = orderItemRepository.findByOrder(order);
+        for (OrderItem it: items) {
+            if (it.getDelivery() == Delivery.NOT_DELIVERED) {
+                return;
+            }
+        }
+
+        order.setOrderStatus(OrderStatus.PERFORMED);
+
     }
 }

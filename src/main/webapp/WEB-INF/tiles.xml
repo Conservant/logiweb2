@@ -55,6 +55,12 @@
         <put-attribute name="title" value="login"/>
     </definition>
 
+   <definition name="attachItem" extends="baseLayout">
+       <put-attribute name="current" value=""/>
+       <put-attribute name="content" value="/WEB-INF/jsp/Manager/attachItem.jsp"/>
+       <put-attribute name="title" value="Добавление груза"/>
+   </definition>
+
     <definition name="attachTruck" extends="baseLayout">
         <put-attribute name="title" value="Назначение грузовика"/>
         <put-attribute name="content" value="/WEB-INF/jsp/Manager/attachTruck.jsp"/>
