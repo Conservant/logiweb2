@@ -37,9 +37,9 @@
 
 Состав смены
 <table>
-    <c:forEach items="${driversFromOrders}" var="dr">
+    <c:forEach items="${driversFromOrder}" var="dr">
         <tr>
-            <td><c:out value="${dr.name}"/></td>
+            <td><h2><c:out value="${dr.name}"/></h2></td>
         </tr>
     </c:forEach>
 </table>

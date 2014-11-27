@@ -16,11 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by StarKiller on 20.11.2014.
+ * Class of service layer for working with orders.
+ * Provides layer operations.
  */
 @Service
 @Transactional
@@ -101,15 +101,12 @@ public class OrderService {
     public String attachDriver(Long id, String licenseNumber) {
         Driver driver = driverRepository.findByLicenseNumber(licenseNumber);
         if (driver == null) {
-            //Водитель не найден
             return "" + id + "/attachDriver.html?isFound=false";
         }
 
         if (driver.getTruck() != null) {
-            //Водитель уже на смене
             return "" + id + "/attachDriver.html?isBusy=true";
         }
-
         Order order = orderRepository.findOne(id);
         Truck truck = order.getTruck();
         driver.setTruck(truck);
@@ -151,7 +148,7 @@ public class OrderService {
         if (truck == null) {
             return resultList;
         }
-        resultList = truck.getDrivers();
+        resultList = driverRepository.findByTruck(truck);
         return resultList;
     }
 
