@@ -66,10 +66,22 @@ public class DriverService {
         return driverRepository.findAll();
     }
 
+    /**
+     * Method returns single Driver from database
+     * searching by a license
+     * @param licenseNumber license number of driver
+     * @return Entity object Driver
+     */
     public Driver findDriver(String licenseNumber) {
         return driverRepository.findByLicenseNumber(licenseNumber);
     }
 
+    /**
+     * Method returns Truck which is driven by driver with
+     * given license number
+     * @param licenseNumber license number of driver
+     * @return Entity object Truck
+     */
     public Truck findTruck(String licenseNumber) {
         Driver driver = driverRepository.findByLicenseNumber(licenseNumber);
         return driver.getTruck();
