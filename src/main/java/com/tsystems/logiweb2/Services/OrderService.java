@@ -38,10 +38,19 @@ public class OrderService {
     @Autowired
     private DriverRepository driverRepository;
 
+    /**
+     * Method retrieves list of all orders
+     * @return list of orders
+     */
     public List<Order> getAll() {
         return orderRepository.findAll();
     }
 
+    /**
+     * Method retrieves order from database looking for id
+     * @param id id of order
+     * @return Entity object order
+     */
     public Order findById(Long id) {
         return orderRepository.findOne(id);
     }
@@ -54,12 +63,22 @@ public class OrderService {
         return order;
     }
 
+    /**
+     * Method creates new order in database
+     */
+    @Transactional
     public void save() {
         Order order = new Order();
         order.setOrderStatus(OrderStatus.CREATED);
         orderRepository.save(order);
     }
 
+    /**
+     * changes status of order to CONFIRMED
+     * @param id id of order
+     * @return true if order was CONFIRMED
+     *          false if order is empty
+     */
     @Transactional
     public boolean confirmOrder(Long id) {
         Order order = orderRepository.getOne(id);
@@ -70,6 +89,15 @@ public class OrderService {
         return true;
     }
 
+    /**
+     * Method looking for truck by registration number
+     * then attaches this truck to order
+     * @param id id of order
+     * @param regNumber regNumber of truck
+     * @return empty string if truck was attached
+     * or special message
+     */
+    @Transactional
     public String attachTruck(Long id, String regNumber) {
 
         Truck truck = truckRepository.findByRegNumber(regNumber);
@@ -98,6 +126,15 @@ public class OrderService {
         return "" + id + ".html?isTruckAttached=true";
     }
 
+    /**
+     * Method looking for driver by license number
+     * then attaches this driver to order
+     * @param id id of order
+     * @param licenseNumber license number of driver
+     * @return success message
+     * or special message
+     */
+    @Transactional
     public String attachDriver(Long id, String licenseNumber) {
         Driver driver = driverRepository.findByLicenseNumber(licenseNumber);
         if (driver == null) {
@@ -122,6 +159,12 @@ public class OrderService {
         return "" + id + ".html?isDriverAttached=true";
     }
 
+    /**
+     * Method change status of order to closed
+     * order must be performed
+     * @param id id of order
+     */
+    @Transactional
     public void closeOrder(Long id) {
         Order order = findById(id);
         if (order.getOrderStatus() == OrderStatus.PERFORMED) {
@@ -141,6 +184,12 @@ public class OrderService {
         }
     }
 
+    /**
+     * Method retrieves list of drivers from one orders
+     * @param id id of order
+     * @return list of drivers
+     */
+    @Transactional
     public List<Driver> findDriversByOrder(Long id) {
         List<Driver> resultList = new ArrayList<>();
         Order order = orderRepository.findOne(id);
@@ -152,6 +201,13 @@ public class OrderService {
         return resultList;
     }
 
+    /**
+     * Method adds item to order
+     * @param id id of order
+     * @param orderItem item to adding
+     * @return message of status
+     */
+    @Transactional
     public String attachItem(Long id, OrderItem orderItem) {
         Order order = orderRepository.getOne(id);
         orderItem.setDelivery(Delivery.NOT_DELIVERED);

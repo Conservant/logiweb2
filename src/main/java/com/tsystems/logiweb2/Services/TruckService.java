@@ -27,6 +27,7 @@ public class TruckService {
      *
      * @param truck entity object to adding
      */
+    @Transactional
     public void save(Truck truck) {
         logger.info("Service method 'save' for new truck called with argument" + truck);
         Double cap = truck.getCapacity();
@@ -45,6 +46,7 @@ public class TruckService {
      *
      * @return list of all drivers
      */
+    @Transactional
     public List<Truck> getAll() {
         logger.info("Service method 'getAll' for trucks called");
         return truckRepository.findAll();

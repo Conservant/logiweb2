@@ -44,6 +44,7 @@ public class DriverService {
      *
      * @param driver entity object to adding
      */
+    @Transactional
     public void save(Driver driver) {
         logger.info("Service method 'save' for driver called with argument " + driver);
         driver.setDriverStatus(DriverStatus.FREE);
@@ -61,6 +62,7 @@ public class DriverService {
      *
      * @return list of all drivers
      */
+    @Transactional
     public List<Driver> getAll() {
         logger.info("Service  method 'get All' for drivers called");
         return driverRepository.findAll();
@@ -72,6 +74,7 @@ public class DriverService {
      * @param licenseNumber license number of driver
      * @return Entity object Driver
      */
+    @Transactional
     public Driver findDriver(String licenseNumber) {
         return driverRepository.findByLicenseNumber(licenseNumber);
     }
@@ -94,6 +97,7 @@ public class DriverService {
      * @param licenseNumber license number of driver
      * @return Entity object Order
      */
+    @Transactional
     public Order findOrder(String licenseNumber) {
         Driver driver = driverRepository.findByLicenseNumber(licenseNumber);
         Truck truck = driver.getTruck();
@@ -111,6 +115,7 @@ public class DriverService {
      * @param licenseNumber
      * @return
      */
+    @Transactional
     public List<Driver> getDriversFromOrder(String licenseNumber) {
         Truck truck = findTruck(licenseNumber);
         return driverRepository.findByTruck(truck);
@@ -118,11 +123,12 @@ public class DriverService {
 
 
     /**
-     *
-     * @param licenseNumber license
+     * Method changes status of driver to given.
+     * @param licenseNumber license number of driver
      * @param status
-     * @return
+     * @return empty string if ok, and another driver message in other case
      */
+    @Transactional
     public String changeStatus(String licenseNumber, DriverStatus status) {
         Driver driver = findDriver(licenseNumber);
         if (driver.getDriverStatus() == DriverStatus.FREE) {
@@ -145,6 +151,12 @@ public class DriverService {
         return "";
     }
 
+    /**
+     *  Method changes status of cargo to DELIVERED
+     *  and changes status of Order if all cargos are delivered
+     * @param id id of of OrderItem
+     */
+    @Transactional
     public void deliver(Long id) {
         OrderItem item = orderItemRepository.findOne(id);
         item.setDelivery(Delivery.DELIVERED);
@@ -159,6 +171,5 @@ public class DriverService {
         }
 
         order.setOrderStatus(OrderStatus.PERFORMED);
-
     }
 }
