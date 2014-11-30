@@ -87,6 +87,13 @@ public class DriverService {
         return driver.getTruck();
     }
 
+
+    /**
+     * Method returns Order which is executing by driver with
+     * given license number
+     * @param licenseNumber license number of driver
+     * @return Entity object Order
+     */
     public Order findOrder(String licenseNumber) {
         Driver driver = driverRepository.findByLicenseNumber(licenseNumber);
         Truck truck = driver.getTruck();
@@ -98,11 +105,24 @@ public class DriverService {
         return orderRepository.findByTruck(truck);
     }
 
+    /**
+     * Method returns list of co-drivers which is executing by driver with
+     * given license number
+     * @param licenseNumber
+     * @return
+     */
     public List<Driver> getDriversFromOrder(String licenseNumber) {
         Truck truck = findTruck(licenseNumber);
         return driverRepository.findByTruck(truck);
     }
 
+
+    /**
+     *
+     * @param licenseNumber license
+     * @param status
+     * @return
+     */
     public String changeStatus(String licenseNumber, DriverStatus status) {
         Driver driver = findDriver(licenseNumber);
         if (driver.getDriverStatus() == DriverStatus.FREE) {
