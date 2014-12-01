@@ -11,6 +11,7 @@ import com.tsystems.logiweb2.model.Truck;
 import com.tsystems.logiweb2.model.enums.Delivery;
 import com.tsystems.logiweb2.model.enums.DriverStatus;
 import com.tsystems.logiweb2.model.enums.OrderStatus;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,11 +39,14 @@ public class OrderService {
     @Autowired
     private DriverRepository driverRepository;
 
+    Logger logger = Logger.getLogger(OrderService.class);
+
     /**
      * Method retrieves list of all orders
      * @return list of orders
      */
     public List<Order> getAll() {
+        logger.info("Service method 'getAll' for orders called");
         return orderRepository.findAll();
     }
 
@@ -52,11 +56,13 @@ public class OrderService {
      * @return Entity object order
      */
     public Order findById(Long id) {
+        logger.info("Service method 'findById' for order called with argument " + id);
         return orderRepository.findOne(id);
     }
 
     @Transactional
     public Order findOrderWithItems(Long id) {
+        logger.info("Service method 'findOrderWithItems' for order called with argument " + id);
         Order order = findById(id);
         List<OrderItem> items = orderItemRepository.findByOrder(order);
         order.setItems(items);
@@ -68,6 +74,7 @@ public class OrderService {
      */
     @Transactional
     public void save() {
+        logger.info("Service method 'save' for creating new order called");
         Order order = new Order();
         order.setOrderStatus(OrderStatus.CREATED);
         orderRepository.save(order);
@@ -81,6 +88,7 @@ public class OrderService {
      */
     @Transactional
     public boolean confirmOrder(Long id) {
+        logger.info("Service method 'confirmOrder' for order called with argument " + id);
         Order order = orderRepository.getOne(id);
         if (order.getItems().isEmpty()) {
             return false;
@@ -99,7 +107,7 @@ public class OrderService {
      */
     @Transactional
     public String attachTruck(Long id, String regNumber) {
-
+        logger.info("Service method 'attachTruck' for order called with argument " + id + " truck: " + regNumber);
         Truck truck = truckRepository.findByRegNumber(regNumber);
         if (truck == null) {
             return "" + id + "/attachTruck.html?isFound=false";
@@ -136,6 +144,7 @@ public class OrderService {
      */
     @Transactional
     public String attachDriver(Long id, String licenseNumber) {
+        logger.info("Service method 'attachOrder' for order called with argument " + id + "driver: " + licenseNumber);
         Driver driver = driverRepository.findByLicenseNumber(licenseNumber);
         if (driver == null) {
             return "" + id + "/attachDriver.html?isFound=false";
@@ -166,6 +175,7 @@ public class OrderService {
      */
     @Transactional
     public void closeOrder(Long id) {
+        logger.info("Service method 'closeOrder' for order called with argument " + id);
         Order order = findById(id);
         if (order.getOrderStatus() == OrderStatus.PERFORMED) {
             order.setOrderStatus(OrderStatus.CLOSED);
@@ -191,6 +201,7 @@ public class OrderService {
      */
     @Transactional
     public List<Driver> findDriversByOrder(Long id) {
+        logger.info("Service method 'findDriversByOrder' for order called with argument " + id);
         List<Driver> resultList = new ArrayList<>();
         Order order = orderRepository.findOne(id);
         Truck truck = order.getTruck();
@@ -209,6 +220,7 @@ public class OrderService {
      */
     @Transactional
     public String attachItem(Long id, OrderItem orderItem) {
+        logger.info("Service method 'attachItem' for order called with argument " + id + " Item: " + orderItem.getName());
         Order order = orderRepository.getOne(id);
         orderItem.setDelivery(Delivery.NOT_DELIVERED);
         orderItem.setOrder(order);

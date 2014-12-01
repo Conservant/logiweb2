@@ -24,7 +24,7 @@ import java.util.List;
 @Transactional
 public class DriverService {
 
-    private static Logger logger = Logger.getLogger(DriverService.class);
+    Logger logger = Logger.getLogger(DriverService.class);
 
 
     @Autowired
@@ -76,6 +76,7 @@ public class DriverService {
      */
     @Transactional
     public Driver findDriver(String licenseNumber) {
+        logger.info("Service method 'findDriver' for driver called with argument " + licenseNumber);
         return driverRepository.findByLicenseNumber(licenseNumber);
     }
 
@@ -86,6 +87,7 @@ public class DriverService {
      * @return Entity object Truck
      */
     public Truck findTruck(String licenseNumber) {
+        logger.info("Service method 'findTruck' for driver called with argument " + licenseNumber);
         Driver driver = driverRepository.findByLicenseNumber(licenseNumber);
         return driver.getTruck();
     }
@@ -99,6 +101,7 @@ public class DriverService {
      */
     @Transactional
     public Order findOrder(String licenseNumber) {
+        logger.info("Service method 'findOrder' for driver called with argument " + licenseNumber);
         Driver driver = driverRepository.findByLicenseNumber(licenseNumber);
         Truck truck = driver.getTruck();
 
@@ -117,6 +120,7 @@ public class DriverService {
      */
     @Transactional
     public List<Driver> getDriversFromOrder(String licenseNumber) {
+        logger.info("Service method 'getDriversFromOrder' for driver called with argument " + licenseNumber);
         Truck truck = findTruck(licenseNumber);
         return driverRepository.findByTruck(truck);
     }
@@ -130,8 +134,10 @@ public class DriverService {
      */
     @Transactional
     public String changeStatus(String licenseNumber, DriverStatus status) {
+        logger.info("Service method 'findDriver' for driver called with argument " + licenseNumber);
         Driver driver = findDriver(licenseNumber);
         if (driver.getDriverStatus() == DriverStatus.FREE) {
+            logger.info("Driver with license " + licenseNumber + " cannot change his status cause he is not executing any order");
             return "";
         }
         if (status == DriverStatus.ON_ROUTE) {
@@ -143,6 +149,7 @@ public class DriverService {
         List<Driver> sameDrivers = getDriversFromOrder(licenseNumber);
         for (Driver dr : sameDrivers) {
             if (dr.getDriverStatus() == DriverStatus.DRIVING) {
+                logger.info("Driver with license " + licenseNumber + " cannot change his status cause another driver is driving");
                 return "?anotherDriverIsDriving=true";
             }
         }
@@ -158,6 +165,8 @@ public class DriverService {
      */
     @Transactional
     public void deliver(Long id) {
+        logger.info("Driver delivered order item with id = " + id);
+
         OrderItem item = orderItemRepository.findOne(id);
         item.setDelivery(Delivery.DELIVERED);
         orderItemRepository.save(item);
